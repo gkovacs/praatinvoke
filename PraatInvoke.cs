@@ -25,39 +25,112 @@
 // THE SOFTWARE.
 
 using System;
+using System.IO;
 using System.Diagnostics;
+using System.Collections.Generic;
 
 namespace praatinvoke
 {
 	public class PraatInvoke
 	{
+		OutputPraatDelegate outputpraat;
+		
 		public string praatexe;
 		public string praatscript;
 		
+		public static Pair<string, float>[] ParsePraatOutput(string s)
+		{
+			string[] sl = s.Split('\n');
+			List<Pair<string, float>> o = new List<Pair<string, float>>();
+			foreach (string x in sl)
+			{
+				string c = x.Trim();
+				if (c.Count("=") != 1)
+				{
+					continue;
+				}
+				Pair<string, float> p = new Pair<string, float>();
+				p.first = c.Split('=')[0].Trim();
+				p.second = c.Split('=')[1].Trim().ToFloat();
+				o.Add(p);
+			}
+			return o.ToArray();
+		}
+		
+		public string[] ListPraatVariables()
+		{
+			return ListPraatVariables(praatscript);
+		}
+		
+		public static string[] ListPraatVariables(string filename)
+		{
+			FileStream r = new FileStream(filename, FileMode.Open);
+			string[] ret = ListPraatVariables(r);
+			r.Close();
+			return ret;
+		}
+		
+		public static string[] ListPraatVariables(FileStream stream)
+		{
+			StreamReader r = new StreamReader(stream);
+			string[] ret = ListPraatVariables(r);
+			r.Close();
+			return ret;
+		}
+		
+		public static string[] ListPraatVariables(StreamReader s)
+		{
+			List<string> paramlist = new List<string>();
+			while (!s.EndOfStream)
+			{
+				string l = s.ReadLine().Trim();
+				if (l.StartsWith("printline"))
+				{
+					l = l.Replace("printline", "").Trim();
+					if (l.Count('=') == 1)
+					{
+						paramlist.Add(l.Split('=')[0].Trim());
+					}
+				}
+			}
+			return paramlist.ToArray();
+		}
+		
 		public void StdoutHandler(object sender, DataReceivedEventArgs s)
 		{
-			Console.WriteLine(s.ToString());
+			outputpraat(ParsePraatOutput(s.Data));
 		}
 		
 		public void StderrHandler(object sender, DataReceivedEventArgs s)
 		{
-			Console.WriteLine(s.ToString());
+			outputpraat(ParsePraatOutput(s.Data));
 		}
 		
 		public void CallPraat(string wavfile)
 		{
 			Process p = new Process();
-			p.OutputDataReceived += new DataReceivedEventHandler(StdoutHandler);
-			p.ErrorDataReceived += new DataReceivedEventHandler(StderrHandler);
+			p.StartInfo.RedirectStandardOutput = true;
+//			p.StartInfo.RedirectStandardError = true;
+			p.StartInfo.UseShellExecute = false;
+			p.StartInfo.CreateNoWindow = true;
 			p.StartInfo.FileName = praatexe;
 			p.StartInfo.Arguments += "-a "+praatscript+" "+wavfile;
+			p.OutputDataReceived += new DataReceivedEventHandler(StdoutHandler);
+//			p.ErrorDataReceived += new DataReceivedEventHandler(StderrHandler);
 			p.Start();
+			p.BeginOutputReadLine();
+//			p.BeginErrorReadLine();
 //			p.WaitForExit();
 		}
 		
 		public CallPraatDelegate GetPraatDelegate()
 		{
 			return new CallPraatDelegate(CallPraat);
+		}
+		
+		public void SetOutputPraatDelegate(OutputPraatDelegate d)
+		{
+			outputpraat = d;
 		}
 		
 		public PraatInvoke(string exef, string scriptf)

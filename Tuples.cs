@@ -1,5 +1,5 @@
 // 
-// Main.cs
+// Tuples.cs
 //  
 // Author:
 //       Geza Kovacs <gkovacs@mit.edu>
@@ -28,23 +28,35 @@ using System;
 
 namespace praatinvoke
 {
-	class MainClass
+	public class Pair<T, U>
 	{
-		public static void Main(string[] args)
+		public T first;
+		public U second;
+		public Pair()
 		{
-			if (args.Length < 2)
-			{
-				Console.WriteLine("not enough arguments");
-				return;
-			}
-			PraatInvoke pri = new PraatInvoke(args[0], args[1]);
-			PraatOutput pao = new PraatOutput();
-			WaveWriter wwr = new WaveWriter();
-			PortAudioRecord rec = new PortAudioRecord();
-			rec.SetSamplesDelegate(wwr.GetSamplesDelegate());
-			wwr.SetPraatDelegate(pri.GetPraatDelegate());
-			pri.SetOutputPraatDelegate(pao.GetPraatOutputDelegate());
-			rec.Run(-1);
+			
+		}
+		public Pair(T f, U s)
+		{
+			first = f;
+			second = s;
+		}
+	}
+
+	public class Triple<T, U, V>
+	{
+		public T first;
+		public U second;
+		public V third;
+		public Triple()
+		{
+			
+		}
+		public Triple(T f, U s, V t)
+		{
+			first = f;
+			second = s;
+			third = t;
 		}
 	}
 }

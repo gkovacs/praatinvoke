@@ -1,5 +1,5 @@
 // 
-// Main.cs
+// PraatOutput.cs
 //  
 // Author:
 //       Geza Kovacs <gkovacs@mit.edu>
@@ -28,23 +28,19 @@ using System;
 
 namespace praatinvoke
 {
-	class MainClass
+	public class PraatOutput
 	{
-		public static void Main(string[] args)
+		public void PrintPraatOutput(Pair<string, float>[] output)
 		{
-			if (args.Length < 2)
+			foreach(Pair<string, float> x in output)
 			{
-				Console.WriteLine("not enough arguments");
-				return;
+				Console.WriteLine("PrintPraatOutput: "+x.mkstring());
 			}
-			PraatInvoke pri = new PraatInvoke(args[0], args[1]);
-			PraatOutput pao = new PraatOutput();
-			WaveWriter wwr = new WaveWriter();
-			PortAudioRecord rec = new PortAudioRecord();
-			rec.SetSamplesDelegate(wwr.GetSamplesDelegate());
-			wwr.SetPraatDelegate(pri.GetPraatDelegate());
-			pri.SetOutputPraatDelegate(pao.GetPraatOutputDelegate());
-			rec.Run(-1);
+		}
+		
+		public OutputPraatDelegate GetPraatOutputDelegate()
+		{
+			return new OutputPraatDelegate(PrintPraatOutput);
 		}
 	}
 }
