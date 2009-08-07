@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.21022</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{3B035C57-C504-4F99-8629-BA6BE168F5E8}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <AssemblyName>praatinvoke</AssemblyName>
+    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug</OutputPath>
+    <DefineConstants>DEBUG</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>none</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Main.cs" />
+    <Compile Include="AssemblyInfo.cs" />
+    <Compile Include="LibsndfileWrapper.cs" />
+    <Compile Include="Constants.cs" />
+    <Compile Include="PortAudioRecord.cs" />
+    <Compile Include="WaveWriter.cs" />
+    <Compile Include="PraatInvoke.cs" />
+    <Compile Include="PortAudioSharp\ASIODeviceControl.Designer.cs">
+      <DependentUpon>src\PortAudioSharp\ASIODeviceControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PortAudioSharp\ASIODeviceControl.cs" />
+    <Compile Include="PortAudioSharp\ApiHostSelectionForm.Designer.cs">
+      <DependentUpon>src\PortAudioSharp\ApiHostSelectionForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PortAudioSharp\ApiHostSelectionForm.cs" />
+    <Compile Include="PortAudioSharp\Audio.cs" />
+    <Compile Include="PortAudioSharp\AudioSettingsControl.Designer.cs">
+      <DependentUpon>src\PortAudioSharp\AudioSettingsControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PortAudioSharp\AudioSettingsControl.cs" />
+    <Compile Include="PortAudioSharp\DeviceItem.cs" />
+    <Compile Include="PortAudioSharp\DirectSoundDeviceControl.Designer.cs">
+      <DependentUpon>src\PortAudioSharp\DirectSoundDeviceControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PortAudioSharp\DirectSoundDeviceControl.cs" />
+    <Compile Include="PortAudioSharp\HostApiItem.cs" />
+    <Compile Include="PortAudioSharp\MMEDeviceControl.Designer.cs">
+      <DependentUpon>src\PortAudioSharp\MMEDeviceControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PortAudioSharp\MMEDeviceControl.cs" />
+    <Compile Include="PortAudioSharp\PortAudio.cs" />
+    <Compile Include="PortAudioSharp\PortAudioASIO.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <EmbeddedResource Include="PortAudioSharp\ASIODeviceControl.resx">
+      <DependentUpon>src\PortAudioSharp\ASIODeviceControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PortAudioSharp\ApiHostSelectionForm.resx">
+      <DependentUpon>src\PortAudioSharp\ApiHostSelectionForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PortAudioSharp\AudioSettingsControl.resx">
+      <DependentUpon>src\PortAudioSharp\AudioSettingsControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PortAudioSharp\DirectSoundDeviceControl.resx">
+      <DependentUpon>src\PortAudioSharp\DirectSoundDeviceControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PortAudioSharp\MMEDeviceControl.resx">
+      <DependentUpon>src\PortAudioSharp\MMEDeviceControl.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+</Project>
