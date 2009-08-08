@@ -32,6 +32,8 @@ namespace praatinvoke
 	{
 		public void PrintPraatOutput(Pair<string, float>[] output)
 		{
+			if (output == null)
+				return;
 			foreach(Pair<string, float> x in output)
 			{
 				Console.WriteLine("PrintPraatOutput: "+x.mkstring());

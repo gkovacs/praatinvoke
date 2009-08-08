@@ -40,107 +40,201 @@ namespace praatinvoke
 		
 		public static Pair<string, float>[] ParsePraatOutput(string s)
 		{
-			string[] sl = s.Split('\n');
-			List<Pair<string, float>> o = new List<Pair<string, float>>();
-			foreach (string x in sl)
+			try
 			{
-				string c = x.Trim();
-				if (c.Count("=") != 1)
+				if (s == null)
+					return null;
+				if (s == string.Empty)
+					return null;
+				string[] sl = s.Split('\n');
+				List<Pair<string, float>> o = new List<Pair<string, float>>();
+				foreach (string x in sl)
 				{
-					continue;
+					string c = x.Trim();
+					if (c.Count("=") != 1)
+					{
+						continue;
+					}
+					Pair<string, float> p = new Pair<string, float>();
+					string[] parts = c.Split('=');
+					if (parts.Length < 2)
+						continue;
+					if (parts[0] == null || parts[0] == string.Empty)
+						continue;
+					if (parts[1] == null || parts[1] == string.Empty)
+						continue;
+					p.first = c.Split('=')[0].Trim();
+					p.second = c.Split('=')[1].Trim().ToFloat();
+					o.Add(p);
 				}
-				Pair<string, float> p = new Pair<string, float>();
-				p.first = c.Split('=')[0].Trim();
-				p.second = c.Split('=')[1].Trim().ToFloat();
-				o.Add(p);
+				return o.ToArray();
 			}
-			return o.ToArray();
+			catch (Exception e)
+			{
+				Console.WriteLine(e);
+				return null;
+			}
 		}
 		
 		public string[] ListPraatVariables()
 		{
-			return ListPraatVariables(praatscript);
+			try
+			{
+				return ListPraatVariables(praatscript);
+			}
+			catch (Exception e)
+			{
+				Console.WriteLine(e);
+				return null;
+			}
 		}
 		
 		public static string[] ListPraatVariables(string filename)
 		{
-			FileStream r = new FileStream(filename, FileMode.Open);
-			string[] ret = ListPraatVariables(r);
-			r.Close();
-			return ret;
+			try
+			{
+				FileStream r = new FileStream(filename, FileMode.Open);
+				string[] ret = ListPraatVariables(r);
+				r.Close();
+				return ret;
+			}
+			catch (Exception e)
+			{
+				Console.WriteLine(e);
+				return null;
+			}
 		}
 		
 		public static string[] ListPraatVariables(FileStream stream)
 		{
-			StreamReader r = new StreamReader(stream);
-			string[] ret = ListPraatVariables(r);
-			r.Close();
-			return ret;
+			try
+			{
+				StreamReader r = new StreamReader(stream);
+				string[] ret = ListPraatVariables(r);
+				r.Close();
+				return ret;
+			}
+			catch (Exception e)
+			{
+				Console.WriteLine(e);
+				return null;
+			}
 		}
 		
 		public static string[] ListPraatVariables(StreamReader s)
 		{
-			List<string> paramlist = new List<string>();
-			while (!s.EndOfStream)
+			try
 			{
-				string l = s.ReadLine().Trim();
-				if (l.StartsWith("printline"))
+				List<string> paramlist = new List<string>();
+				while (!s.EndOfStream)
 				{
-					l = l.Replace("printline", "").Trim();
-					if (l.Count('=') == 1)
+					string l = s.ReadLine().Trim();
+					if (l.StartsWith("printline"))
 					{
-						paramlist.Add(l.Split('=')[0].Trim());
+						l = l.Replace("printline", "").Trim();
+						if (l.Count('=') == 1)
+						{
+							paramlist.Add(l.Split('=')[0].Trim());
+						}
 					}
 				}
+				return paramlist.ToArray();
 			}
-			return paramlist.ToArray();
+			catch (Exception e)
+			{
+				Console.WriteLine(e);
+				return null;
+			}
 		}
 		
 		public void StdoutHandler(object sender, DataReceivedEventArgs s)
 		{
-			if (s == null || s.Data == null)
-				return;
-			outputpraat(ParsePraatOutput(s.Data));
+			try
+			{
+				if (s == null || s.Data == null)
+					return;
+				outputpraat(ParsePraatOutput(s.Data));
+			}
+			catch (Exception e)
+			{
+				Console.WriteLine(e);
+			}
 		}
 		
 		public void StderrHandler(object sender, DataReceivedEventArgs s)
 		{
-			if (s == null || s.Data == null)
-				return;
-			outputpraat(ParsePraatOutput(s.Data));
+			try
+			{
+				if (s == null || s.Data == null)
+					return;
+				outputpraat(ParsePraatOutput(s.Data));
+			}
+			catch (Exception e)
+			{
+				Console.WriteLine(e);
+			}
 		}
 		
 		public void CallPraat(string wavfile)
 		{
-			Process p = new Process();
-			p.StartInfo.RedirectStandardOutput = true;
-//			p.StartInfo.RedirectStandardError = true;
-			p.StartInfo.UseShellExecute = false;
-			p.StartInfo.CreateNoWindow = true;
-			p.StartInfo.FileName = praatexe;
-			p.StartInfo.Arguments += "-a "+praatscript+" "+wavfile;
-			p.OutputDataReceived += new DataReceivedEventHandler(StdoutHandler);
-//			p.ErrorDataReceived += new DataReceivedEventHandler(StderrHandler);
-			p.Start();
-			p.BeginOutputReadLine();
-//			p.BeginErrorReadLine();
-//			p.WaitForExit();
+			try
+			{
+				Process p = new Process();
+				p.StartInfo.RedirectStandardOutput = true;
+	//			p.StartInfo.RedirectStandardError = true;
+				p.StartInfo.UseShellExecute = false;
+				p.StartInfo.CreateNoWindow = true;
+				p.StartInfo.FileName = praatexe;
+				p.StartInfo.Arguments += "-a "+praatscript+" "+wavfile;
+				p.OutputDataReceived += new DataReceivedEventHandler(StdoutHandler);
+	//			p.ErrorDataReceived += new DataReceivedEventHandler(StderrHandler);
+				p.Start();
+				p.BeginOutputReadLine();
+	//			p.BeginErrorReadLine();
+	//			p.WaitForExit();
+			}
+			catch (Exception e)
+			{
+				Console.WriteLine(e);
+			}
 		}
 		
 		public CallPraatDelegate GetPraatDelegate()
 		{
-			return new CallPraatDelegate(CallPraat);
+			try
+			{
+				return new CallPraatDelegate(CallPraat);
+			}
+			catch (Exception e)
+			{
+				Console.WriteLine(e);
+				return null;
+			}
 		}
 		
 		public void SetOutputPraatDelegate(OutputPraatDelegate d)
 		{
-			outputpraat = d;
+			try
+			{
+				outputpraat = d;
+			}
+			catch (Exception e)
+			{
+				Console.WriteLine(e);
+			}
 		}
 		
 		public PraatInvoke(string exef, string scriptf)
 		{
-			praatexe = exef;
-			praatscript = scriptf;
+			try
+			{
+				praatexe = exef;
+				praatscript = scriptf;
+			}
+			catch (Exception e)
+			{
+				Console.WriteLine(e);
+			}
 		}
 	}
 }
