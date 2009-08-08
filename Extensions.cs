@@ -32,79 +32,167 @@ namespace praatinvoke
 	{
 		public static string GetFirst(this string str, int num)
 		{
-			return str.GetMid(0, num);
+			try
+			{
+				return str.GetMid(0, num);
+			}
+			catch (Exception e)
+			{
+				Console.WriteLine(e);
+				return null;
+			}
 		}
 		
 		public static string GetLast(this string str, int num)
 		{
-			return str.GetMid(str.Length-num, num);
+			try
+			{
+				return str.GetMid(str.Length-num, num);
+			}
+			catch (Exception e)
+			{
+				Console.WriteLine(e);
+				return null;
+			}
 		}
 		
 		public static string GetMid(this string str, int startpos, int num)
 		{
-			string outmsg = "";
-			for (int i = startpos; i < startpos+num; ++i)
+			try
 			{
-				outmsg += str[i];
+				string outmsg = "";
+				for (int i = startpos; i < startpos+num; ++i)
+				{
+					outmsg += str[i];
+				}
+				return outmsg;
 			}
-			return outmsg;
+			catch (Exception e)
+			{
+				Console.WriteLine(e);
+				return null;
+			}
 		}
 		
 		public static int Count(this string str, string s)
 		{
-			int num = 0;
-			for (int i = 0; i < str.Length+1-s.Length; ++i)
+			try
 			{
-				if (str.GetMid(i, s.Length) == s)
+				int num = 0;
+				for (int i = 0; i < str.Length+1-s.Length; ++i)
 				{
-					++num;
-					i += s.Length-1;
+					if (str.GetMid(i, s.Length) == s)
+					{
+						++num;
+						i += s.Length-1;
+					}
 				}
+				return num;
 			}
-			return num;
+			catch (Exception e)
+			{
+				Console.WriteLine(e);
+				return 0;
+			}
 		}
 		
 		public static int Count(this string str, char s)
 		{
-			int num = 0;
-			for (int i = 0; i < str.Length; ++i)
+			try
 			{
-				if (str[i] == s)
+				int num = 0;
+				for (int i = 0; i < str.Length; ++i)
 				{
-					++num;
+					if (str[i] == s)
+					{
+						++num;
+					}
 				}
+				return num;
 			}
-			return num;
+			catch (Exception e)
+			{
+				Console.WriteLine(e);
+				return 0;
+			}
 		}
 		
 		public static float ToFloat(this string str)
 		{
-			return System.Convert.ToSingle(str);
+			try
+			{
+				return System.Convert.ToSingle(str);
+			}
+			catch (Exception e)
+			{
+				Console.WriteLine(e);
+				return 0.0f;
+			}
 		}
 		
 		public static int ToInt(this string str)
 		{
-			return System.Convert.ToInt32(str);
+			try
+			{
+				return System.Convert.ToInt32(str);
+			}
+			catch (Exception e)
+			{
+				Console.WriteLine(e);
+				return 0;
+			}
 		}
 		
 		public static string mkstring<T, U> (this Pair<T, U> str)
 		{
-			return "("+str.first.ToString()+","+str.second.ToString()+")";
+			try
+			{
+				return "("+str.first.ToString()+","+str.second.ToString()+")";
+			}
+			catch (Exception e)
+			{
+				Console.WriteLine(e);
+				return null;
+			}
 		}
 		
 		public static string mkstring<T, U, V>(this Triple<T, U, V> str)
 		{
-			return "("+str.first.ToString()+","+str.second.ToString()+","+str.third.ToString()+")";
+			try
+			{
+				return "("+str.first.ToString()+","+str.second.ToString()+","+str.third.ToString()+")";
+			}
+			catch (Exception e)
+			{
+				Console.WriteLine(e);
+				return null;
+			}
 		}
 		
 		public static string mkstring<T, U, V, W, X, Y>(this Pair< Triple<T, U, V>, Triple<W, X, Y> > str)
 		{
-			return "{"+str.first.mkstring()+","+str.second.mkstring()+"}";
+			try
+			{
+				return "{"+str.first.mkstring()+","+str.second.mkstring()+"}";
+			}
+			catch (Exception e)
+			{
+				Console.WriteLine(e);
+				return null;
+			}
 		}
 		
 		public static string mkstring<T, U, W, X>(this Pair< Pair<T, U>, Pair<W, X> > str)
 		{
-			return "{"+str.first.mkstring()+","+str.second.mkstring()+"}";
+			try
+			{
+				return "{"+str.first.mkstring()+","+str.second.mkstring()+"}";
+			}
+			catch (Exception e)
+			{
+				Console.WriteLine(e);
+				return null;
+			}
 		}
 	}
 }
