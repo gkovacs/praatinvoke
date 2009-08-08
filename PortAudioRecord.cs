@@ -95,22 +95,6 @@ namespace praatinvoke
 			}
 		}
 		
-		public void Start()
-		{
-			try
-			{
-				audio.Start();
-			}
-			catch (Exception e)
-			{
-				Console.WriteLine(e.ToString());
-			}
-			finally
-			{
-				if (audio != null) audio.Dispose();
-			}
-		}
-		
 		public void Stop()
 		{
 			try
@@ -141,27 +125,6 @@ namespace praatinvoke
 			catch (Exception e)
 			{
 				Console.WriteLine(e);
-			}
-		}
-		
-		public void Run(int timeoutms)
-		{
-			try
-			{
-//				audio.Start();
-				if (timeoutms == -1)
-					Thread.Sleep(Timeout.Infinite);
-				else
-					Thread.Sleep(timeoutms);
-				audio.Stop();
-			}
-			catch (Exception e)
-			{
-				Console.WriteLine(e.ToString());
-			}
-			finally
-			{
-				if (audio != null) audio.Dispose();
 			}
 		}
 	}
