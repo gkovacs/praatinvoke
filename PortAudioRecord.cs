@@ -31,7 +31,7 @@ using PortAudioSharp;
 
 namespace praatinvoke
 {	
-	class PortAudioRecord
+	public class PortAudioRecord
 	{
 		public ReceiveSamplesDelegate samplesDelegate;
 		

@@ -31,7 +31,7 @@ using Arbingersys.Audio.Aumplib;
 
 namespace praatinvoke
 {	
-	class WaveWriter
+	public class WaveWriter
 	{
 		public CallPraatDelegate callpraat;
 		
@@ -39,7 +39,7 @@ namespace praatinvoke
 		public int pauseCountup;
 		public int pauseCountdown;
 		public IntPtr soundf;
-		public LibsndfileWrapper.SF_INFO soundfInfo = new LibsndfileWrapper.SF_INFO();
+		LibsndfileWrapper.SF_INFO soundfInfo = new LibsndfileWrapper.SF_INFO();
 		public List<float> upcomingSoundCache = new List<float>();
 		
 		public void ReceiveSamples(float[] inpSamples)
