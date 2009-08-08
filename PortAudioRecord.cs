@@ -30,11 +30,25 @@ using System.Runtime.InteropServices;
 using PortAudioSharp;
 
 namespace praatinvoke
-{	
+{
 	public class PortAudioRecord
 	{
 		public ReceiveSamplesDelegate samplesDelegate;
 		public Audio audio = null;
+		
+		public PortAudioRecord()
+		{
+			try
+			{
+				Audio.LoggingEnabled = true;
+				audio = new Audio(Constants.NUM_CHANNELS, 2, Constants.SAMPLE_RATE, Constants.FRAMESPERBUFFER,
+					new PortAudio.PaStreamCallbackDelegate(recordCallback));
+			}
+			catch (Exception e)
+			{
+				Console.WriteLine(e);
+			}
+		}
 		
 		public PortAudio.PaStreamCallbackResult recordCallback(
 	 		IntPtr input,
@@ -81,15 +95,13 @@ namespace praatinvoke
 			}
 		}
 		
-		public void Stop()
+		public void Start()
 		{
 			try
 			{
-				if (audio == null)
-					return;
-				audio.Stop();
+				audio.Start();
 			}
-			catch(Exception e)
+			catch (Exception e)
 			{
 				Console.WriteLine(e.ToString());
 			}
@@ -99,20 +111,51 @@ namespace praatinvoke
 			}
 		}
 		
-		public void Run()
+		public void Stop()
 		{
 			try
 			{
-				Audio.LoggingEnabled = true;
-				audio = new Audio(Constants.NUM_CHANNELS, 2, Constants.SAMPLE_RATE, Constants.FRAMESPERBUFFER,
-					new PortAudio.PaStreamCallbackDelegate(recordCallback));
-				audio.Start();
-//				if (timeoutms == -1)
-//					Thread.Sleep(Timeout.Infinite);
-//				Thread.Sleep(timeoutms);
-//				audio.Stop();
+				if (audio == null)
+					return;
+				audio.Stop();
 			}
-			catch(Exception e)
+			catch (Exception e)
+			{
+				Console.WriteLine(e.ToString());
+			}
+			finally
+			{
+				if (audio != null) audio.Dispose();
+			}
+		}
+		
+		public void Sleep(int timeoutms)
+		{
+			try
+			{
+				if (timeoutms == -1)
+					Thread.Sleep(Timeout.Infinite);
+				else
+					Thread.Sleep(timeoutms);
+			}
+			catch (Exception e)
+			{
+				Console.WriteLine(e);
+			}
+		}
+		
+		public void Run(int timeoutms)
+		{
+			try
+			{
+//				audio.Start();
+				if (timeoutms == -1)
+					Thread.Sleep(Timeout.Infinite);
+				else
+					Thread.Sleep(timeoutms);
+				audio.Stop();
+			}
+			catch (Exception e)
 			{
 				Console.WriteLine(e.ToString());
 			}
