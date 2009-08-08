@@ -98,11 +98,15 @@ namespace praatinvoke
 		
 		public void StdoutHandler(object sender, DataReceivedEventArgs s)
 		{
+			if (s == null || s.Data == null)
+				return;
 			outputpraat(ParsePraatOutput(s.Data));
 		}
 		
 		public void StderrHandler(object sender, DataReceivedEventArgs s)
 		{
+			if (s == null || s.Data == null)
+				return;
 			outputpraat(ParsePraatOutput(s.Data));
 		}
 		
