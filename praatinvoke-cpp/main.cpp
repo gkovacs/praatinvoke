@@ -25,6 +25,8 @@ void printpraatSTL(std::vector<std::pair<std::string, float>> pvo)
 
 void MarshalString (System::String ^input, std::string &output)
 {
+	if (!input)
+		return;
 	const char* chars = (const char*)(Marshal::StringToHGlobalAnsi(input)).ToPointer();
 	output = chars;
 	Marshal::FreeHGlobal(IntPtr((void*)chars));
@@ -32,6 +34,8 @@ void MarshalString (System::String ^input, std::string &output)
 
 void printpraatCLI(array<praatinvoke::Pair<System::String^, float>^> ^outputarray)
 {
+	if (!outputarray)
+		return;
 	std::vector<std::pair<std::string, float>> pvo;
 	for (int i = 0; i < outputarray->Length; ++i)
 	{
