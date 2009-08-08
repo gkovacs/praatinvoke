@@ -34,6 +34,7 @@ namespace praatinvoke
 	public class PortAudioRecord
 	{
 		public ReceiveSamplesDelegate samplesDelegate;
+		public Audio audio = null;
 		
 		public PortAudio.PaStreamCallbackResult recordCallback(
 	 		IntPtr input,
@@ -80,19 +81,36 @@ namespace praatinvoke
 			}
 		}
 		
-		public void Run(int timeoutms)
+		public void Stop()
 		{
-			Audio audio = null;
+			try
+			{
+				if (audio == null)
+					return;
+				audio.Stop();
+			}
+			catch(Exception e)
+			{
+				Console.WriteLine(e.ToString());
+			}
+			finally
+			{
+				if (audio != null) audio.Dispose();
+			}
+		}
+		
+		public void Run()
+		{
 			try
 			{
 				Audio.LoggingEnabled = true;
 				audio = new Audio(Constants.NUM_CHANNELS, 2, Constants.SAMPLE_RATE, Constants.FRAMESPERBUFFER,
 					new PortAudio.PaStreamCallbackDelegate(recordCallback));
 				audio.Start();
-				if (timeoutms == -1)
-					Thread.Sleep(Timeout.Infinite);
-				Thread.Sleep(timeoutms);
-				audio.Stop();
+//				if (timeoutms == -1)
+//					Thread.Sleep(Timeout.Infinite);
+//				Thread.Sleep(timeoutms);
+//				audio.Stop();
 			}
 			catch(Exception e)
 			{

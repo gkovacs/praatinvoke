@@ -46,7 +46,9 @@ namespace praatinvoke
 				rec.SetSamplesDelegate(wwr.GetSamplesDelegate());
 				wwr.SetPraatDelegate(pri.GetPraatDelegate());
 				pri.SetOutputPraatDelegate(pao.GetPraatOutputDelegate());
-				rec.Run(-1);
+				rec.Run();
+				System.Threading.Thread.Sleep(System.Threading.Timeout.Infinite);
+				rec.Stop();
 			}
 			catch (Exception e)
 			{
