@@ -32,17 +32,32 @@ namespace praatinvoke
 	{
 		public void PrintPraatOutput(Pair<string, float>[] output)
 		{
-			if (output == null)
-				return;
-			foreach(Pair<string, float> x in output)
+			try
 			{
-				Console.WriteLine("PrintPraatOutput: "+x.mkstring());
+				if (output == null)
+					return;
+				foreach(Pair<string, float> x in output)
+				{
+					Console.WriteLine("PrintPraatOutput: "+x.mkstring());
+				}
+			}
+			catch (Exception e)
+			{
+				Console.WriteLine(e);
 			}
 		}
 		
 		public OutputPraatDelegate GetPraatOutputDelegate()
 		{
-			return new OutputPraatDelegate(PrintPraatOutput);
+			try
+			{
+				return new OutputPraatDelegate(PrintPraatOutput);
+			}
+			catch (Exception e)
+			{
+				Console.WriteLine(e);
+				return null;
+			}
 		}
 	}
 }

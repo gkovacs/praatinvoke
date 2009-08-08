@@ -32,19 +32,26 @@ namespace praatinvoke
 	{
 		public static void Main(string[] args)
 		{
-			if (args.Length < 2)
+			try
 			{
-				Console.WriteLine("not enough arguments");
-				return;
+				if (args.Length < 2)
+				{
+					Console.WriteLine("not enough arguments");
+					return;
+				}
+				PraatInvoke pri = new PraatInvoke(args[0], args[1]);
+				PraatOutput pao = new PraatOutput();
+				WaveWriter wwr = new WaveWriter();
+				PortAudioRecord rec = new PortAudioRecord();
+				rec.SetSamplesDelegate(wwr.GetSamplesDelegate());
+				wwr.SetPraatDelegate(pri.GetPraatDelegate());
+				pri.SetOutputPraatDelegate(pao.GetPraatOutputDelegate());
+				rec.Run(-1);
 			}
-			PraatInvoke pri = new PraatInvoke(args[0], args[1]);
-			PraatOutput pao = new PraatOutput();
-			WaveWriter wwr = new WaveWriter();
-			PortAudioRecord rec = new PortAudioRecord();
-			rec.SetSamplesDelegate(wwr.GetSamplesDelegate());
-			wwr.SetPraatDelegate(pri.GetPraatDelegate());
-			pri.SetOutputPraatDelegate(pao.GetPraatOutputDelegate());
-			rec.Run(-1);
+			catch (Exception e)
+			{
+				Console.WriteLine(e);
+			}
 		}
 	}
 }

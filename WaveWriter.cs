@@ -44,106 +44,157 @@ namespace praatinvoke
 		
 		public void ReceiveSamples(float[] inpSamples)
 		{
-			double inpvecsum = 0.0;
-			foreach (float sample in inpSamples)
+			try
 			{
-				inpvecsum += Constants.MAGNIFICATION * Math.Abs(sample);
-			}
-			inpvecsum /= Constants.SILENCETHRESHOLD;
-			inpvecsum -= Constants.BACKGROUND;
-			Console.WriteLine(inpvecsum.ToString("f10"));
-			if (pauseCountup == 0) // is recording
-			{
-				Console.WriteLine("recording");
-				if (inpvecsum > 0) // have sound, recording as usual
+				double inpvecsum = 0.0;
+				foreach (float sample in inpSamples)
 				{
-					Console.WriteLine("have sound");
-					pauseCountdown = Constants.PAUSECOUNTDOWN;
-					writeSampleBuffer(inpSamples);
+					inpvecsum += Constants.MAGNIFICATION * Math.Abs(sample);
+				}
+				inpvecsum /= Constants.SILENCETHRESHOLD;
+				inpvecsum -= Constants.BACKGROUND;
+				Console.WriteLine(inpvecsum.ToString("f10"));
+				if (pauseCountup == 0) // is recording
+				{
+					Console.WriteLine("recording");
+					if (inpvecsum > 0) // have sound, recording as usual
+					{
+						Console.WriteLine("have sound");
+						pauseCountdown = Constants.PAUSECOUNTDOWN;
+						writeSampleBuffer(inpSamples);
+					}
+					else
+					{
+						if (pauseCountdown == 0) // hasn't had sound input for countdown turns, stop recording
+						{
+							pauseCountdown = Constants.PAUSECOUNTDOWN;
+							pauseCountup = Constants.PAUSECOUNTUP;
+							changeSoundFile();
+						}
+						else // no sound but still recording
+						{
+							--pauseCountdown;
+							writeSampleBuffer(inpSamples);
+						}
+					}
 				}
 				else
 				{
-					if (pauseCountdown == 0) // hasn't had sound input for countdown turns, stop recording
+					if (inpvecsum > 0) // not recording but have sound
 					{
-						pauseCountdown = Constants.PAUSECOUNTDOWN;
-						pauseCountup = Constants.PAUSECOUNTUP;
-						changeSoundFile();
+						upcomingSoundCache.AddRange(inpSamples);
+						--pauseCountup;
+						if (pauseCountup == 0) // have hit critical point, will now start recording, clear buffer and write to file
+						{
+							Console.WriteLine("have hit critical point");
+							writeSampleBuffer(upcomingSoundCache.ToArray());
+							upcomingSoundCache.Clear();
+						}
 					}
-					else // no sound but still recording
+					else // no sound, reset pauseCountup and clear cache
 					{
-						--pauseCountdown;
-						writeSampleBuffer(inpSamples);
+						Console.WriteLine("no sound");
+						upcomingSoundCache.Clear();
+						pauseCountup = Constants.PAUSECOUNTUP;
 					}
 				}
 			}
-			else
+			catch (Exception e)
 			{
-				if (inpvecsum > 0) // not recording but have sound
-				{
-					upcomingSoundCache.AddRange(inpSamples);
-					--pauseCountup;
-					if (pauseCountup == 0) // have hit critical point, will now start recording, clear buffer and write to file
-					{
-						Console.WriteLine("have hit critical point");
-						writeSampleBuffer(upcomingSoundCache.ToArray());
-						upcomingSoundCache.Clear();
-					}
-				}
-				else // no sound, reset pauseCountup and clear cache
-				{
-					Console.WriteLine("no sound");
-					upcomingSoundCache.Clear();
-					pauseCountup = Constants.PAUSECOUNTUP;
-				}
+				Console.WriteLine(e);
 			}
 		}
 		
 		public void changeSoundFile()
 		{
-			Console.WriteLine("soundfile changed");
-			string origsndcapfile = Environment.CurrentDirectory+Path.DirectorySeparatorChar+"sndcap"+Path.DirectorySeparatorChar+sndcapnum.ToString()+".wav";
-			IntPtr soundfold = soundf;
-			string sndcapfile = nextSoundFile();
-			soundf = LibsndfileWrapper.sf_open(sndcapfile, (int)LibsndfileWrapper.fileMode.SFM_WRITE, ref soundfInfo);
-			LibsndfileWrapper.sf_close(soundfold);
-			callpraat(origsndcapfile);
+			try
+			{
+				Console.WriteLine("soundfile changed");
+				string origsndcapfile = Environment.CurrentDirectory+Path.DirectorySeparatorChar+"sndcap"+Path.DirectorySeparatorChar+sndcapnum.ToString()+".wav";
+				IntPtr soundfold = soundf;
+				string sndcapfile = nextSoundFile();
+				soundf = LibsndfileWrapper.sf_open(sndcapfile, (int)LibsndfileWrapper.fileMode.SFM_WRITE, ref soundfInfo);
+				LibsndfileWrapper.sf_close(soundfold);
+				callpraat(origsndcapfile);
+			}
+			catch (Exception e)
+			{
+				Console.WriteLine(e);
+			}
 		}
 		
 		public void writeSampleBuffer(float[] samples)
 		{
-			LibsndfileWrapper.sf_write_float(soundf, samples, samples.Length);
+			try
+			{
+				LibsndfileWrapper.sf_write_float(soundf, samples, samples.Length);
+			}
+			catch (Exception e)
+			{
+				Console.WriteLine(e);
+			}
 		}
 		
 		public string nextSoundFile()
 		{
-			while (File.Exists(Environment.CurrentDirectory+Path.DirectorySeparatorChar+"sndcap"+Path.DirectorySeparatorChar+sndcapnum.ToString()+".wav"))
-				++sndcapnum;
-			return Environment.CurrentDirectory+Path.DirectorySeparatorChar+"sndcap"+Path.DirectorySeparatorChar+sndcapnum.ToString()+".wav";
+			try
+			{
+				while (File.Exists(Environment.CurrentDirectory+Path.DirectorySeparatorChar+"sndcap"+Path.DirectorySeparatorChar+sndcapnum.ToString()+".wav"))
+					++sndcapnum;
+				return Environment.CurrentDirectory+Path.DirectorySeparatorChar+"sndcap"+Path.DirectorySeparatorChar+sndcapnum.ToString()+".wav";
+			}
+			catch (Exception e)
+			{
+				Console.WriteLine(e);
+				return null;
+			}
 		}
 		
 		public void SetPraatDelegate(CallPraatDelegate pri)
 		{
-			callpraat = pri;
+			try
+			{
+				callpraat = pri;
+			}
+			catch (Exception e)
+			{
+				Console.WriteLine(e);
+			}
 		}
 		
 		public ReceiveSamplesDelegate GetSamplesDelegate()
 		{
-			return new ReceiveSamplesDelegate(ReceiveSamples);
+			try
+			{
+				return new ReceiveSamplesDelegate(ReceiveSamples);
+			}
+			catch (Exception e)
+			{
+				Console.WriteLine(e);
+				return null;
+			}
 		}
 		
 		public WaveWriter()
 		{
-			if (!Directory.Exists(Environment.CurrentDirectory+Path.DirectorySeparatorChar+"sndcap"))
+			try
 			{
-				Directory.CreateDirectory(Environment.CurrentDirectory+Path.DirectorySeparatorChar+"sndcap");
+				if (!Directory.Exists(Environment.CurrentDirectory+Path.DirectorySeparatorChar+"sndcap"))
+				{
+					Directory.CreateDirectory(Environment.CurrentDirectory+Path.DirectorySeparatorChar+"sndcap");
+				}
+				soundfInfo.channels = Constants.NUM_CHANNELS;
+				soundfInfo.samplerate = Constants.SAMPLE_RATE;
+				soundfInfo.format = ((int)LibsndfileWrapper.soundFormat.SF_FORMAT_WAV | (int)LibsndfileWrapper.soundFormat.SF_FORMAT_FLOAT);
+				string sndcapfile = nextSoundFile();
+				soundf = LibsndfileWrapper.sf_open(sndcapfile, (int)LibsndfileWrapper.fileMode.SFM_WRITE, ref soundfInfo);
+				pauseCountup = Constants.PAUSECOUNTUP;
+				pauseCountdown = Constants.PAUSECOUNTDOWN;
 			}
-			soundfInfo.channels = Constants.NUM_CHANNELS;
-			soundfInfo.samplerate = Constants.SAMPLE_RATE;
-			soundfInfo.format = ((int)LibsndfileWrapper.soundFormat.SF_FORMAT_WAV | (int)LibsndfileWrapper.soundFormat.SF_FORMAT_FLOAT);
-			string sndcapfile = nextSoundFile();
-			soundf = LibsndfileWrapper.sf_open(sndcapfile, (int)LibsndfileWrapper.fileMode.SFM_WRITE, ref soundfInfo);
-			pauseCountup = Constants.PAUSECOUNTUP;
-			pauseCountdown = Constants.PAUSECOUNTDOWN;
+			catch (Exception e)
+			{
+				Console.WriteLine(e);
+			}
 		}
 	}
 }

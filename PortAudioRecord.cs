@@ -58,12 +58,26 @@ namespace praatinvoke
 		
 		public void SetSamplesDelegate(ReceiveSamplesDelegate wwr)
 		{
-			samplesDelegate = wwr;
+			try
+			{
+				samplesDelegate = wwr;
+			}
+			catch (Exception e)
+			{
+				Console.WriteLine(e);
+			}
 		}
 		
 		public void SetSamplesDelegate(WaveWriter wwr)
 		{
-			samplesDelegate = new ReceiveSamplesDelegate(wwr.ReceiveSamples);
+			try
+			{
+				samplesDelegate = new ReceiveSamplesDelegate(wwr.ReceiveSamples);
+			}
+			catch (Exception e)
+			{
+				Console.WriteLine(e);
+			}
 		}
 		
 		public void Run(int timeoutms)
