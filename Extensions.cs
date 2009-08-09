@@ -117,27 +117,53 @@ namespace praatinvoke
 			}
 		}
 		
-		public static float ToFloat(this string str)
+		public static float ToFloat(this string str, out bool success)
 		{
 			try
 			{
-				return System.Convert.ToSingle(str);
+				success =  true;
+				if (str == null || str == string.Empty)
+				{
+					success = false;
+					return 0.0f;
+				}
+				float outval;
+				if (!float.TryParse(str, out outval))
+				{
+					success = false;
+					return 0.0f;
+				}
+				return outval;
 			}
 			catch (Exception e)
 			{
+				success = false;
 				Console.WriteLine(e);
 				return 0.0f;
 			}
 		}
 		
-		public static int ToInt(this string str)
+		public static int ToInt(this string str, out bool success)
 		{
 			try
 			{
-				return System.Convert.ToInt32(str);
+				success =  true;
+				if (str == null || str == string.Empty)
+				{
+					success = false;
+					return 0;
+				}
+				int outval;
+				if (!int.TryParse(str, out outval))
+				{
+					success = false;
+					return 0;
+				}
+				return outval;
 			}
 			catch (Exception e)
 			{
+				success = false;
 				Console.WriteLine(e);
 				return 0;
 			}

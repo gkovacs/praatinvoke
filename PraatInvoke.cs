@@ -55,17 +55,20 @@ namespace praatinvoke
 					{
 						continue;
 					}
-					Pair<string, float> p = new Pair<string, float>();
 					string[] parts = c.Split('=');
 					if (parts.Length < 2)
 						continue;
-					if (parts[0] == null || parts[0] == string.Empty)
+					string pname = parts[0].Trim();
+					string psval = parts[1].Trim();
+					if (pname == null || pname == string.Empty)
 						continue;
-					if (parts[1] == null || parts[1] == string.Empty)
+					if (psval == null || psval == string.Empty)
 						continue;
-					p.first = c.Split('=')[0].Trim();
-					p.second = c.Split('=')[1].Trim().ToFloat();
-					o.Add(p);
+					bool convsuccess;
+					float pval = psval.ToFloat(out convsuccess);
+					if (!convsuccess)
+						continue;
+					o.Add(new Pair<string, float>(pname, pval));
 				}
 				return o.ToArray();
 			}
