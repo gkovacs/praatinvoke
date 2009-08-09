@@ -31,17 +31,4 @@ namespace praatinvoke
 	public delegate void ReceiveSamplesDelegate(float[] samples);
 	public delegate void CallPraatDelegate(string wavfile);
 	public delegate void OutputPraatDelegate(Pair<string, float>[] output);
-	
-	public static class Constants
-	{
-		public static double SCALEPOWER = 1.0;
-		public static double SILENCETHRESHOLD = 1.0;
-		public static int MAGNIFICATION = 10;
-		public static double BACKGROUND = 30.0;
-		public static uint FRAMESPERBUFFER = 1024;
-		public static int PAUSECOUNTDOWN = 12;
-		public static int PAUSECOUNTUP = 5;
-		public static int SAMPLE_RATE = 44100;
-		public static int NUM_CHANNELS = 1;
-	}
 }

@@ -121,7 +121,7 @@ namespace praatinvoke
 		{
 			try
 			{
-				success =  true;
+				success = true;
 				if (str == null || str == string.Empty)
 				{
 					success = false;
@@ -147,7 +147,7 @@ namespace praatinvoke
 		{
 			try
 			{
-				success =  true;
+				success = true;
 				if (str == null || str == string.Empty)
 				{
 					success = false;

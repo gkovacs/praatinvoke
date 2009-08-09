@@ -34,6 +34,15 @@ namespace praatinvoke
 	public class WaveWriter
 	{
 		public CallPraatDelegate callpraat;
+		public int NUM_CHANNELS = 1;
+		public int SAMPLE_RATE = 44100;
+		public double SCALEPOWER = 1.0;
+		public double SILENCETHRESHOLD = 1.0;
+		public int MAGNIFICATION = 10;
+		public double BACKGROUND = 30.0;
+		public uint FRAMESPERBUFFER = 1024;
+		public int PAUSECOUNTDOWN = 12;
+		public int PAUSECOUNTUP = 5;
 		
 		public int sndcapnum;
 		public int pauseCountup;
@@ -49,10 +58,10 @@ namespace praatinvoke
 				double inpvecsum = 0.0;
 				foreach (float sample in inpSamples)
 				{
-					inpvecsum += Constants.MAGNIFICATION * Math.Abs(sample);
+					inpvecsum += MAGNIFICATION * Math.Abs(sample);
 				}
-				inpvecsum /= Constants.SILENCETHRESHOLD;
-				inpvecsum -= Constants.BACKGROUND;
+				inpvecsum /= SILENCETHRESHOLD;
+				inpvecsum -= BACKGROUND;
 				Console.WriteLine(inpvecsum.ToString("f10"));
 				if (pauseCountup == 0) // is recording
 				{
@@ -60,15 +69,15 @@ namespace praatinvoke
 					if (inpvecsum > 0) // have sound, recording as usual
 					{
 						Console.WriteLine("have sound");
-						pauseCountdown = Constants.PAUSECOUNTDOWN;
+						pauseCountdown = PAUSECOUNTDOWN;
 						writeSampleBuffer(inpSamples);
 					}
 					else
 					{
 						if (pauseCountdown == 0) // hasn't had sound input for countdown turns, stop recording
 						{
-							pauseCountdown = Constants.PAUSECOUNTDOWN;
-							pauseCountup = Constants.PAUSECOUNTUP;
+							pauseCountdown = PAUSECOUNTDOWN;
+							pauseCountup = PAUSECOUNTUP;
 							changeSoundFile();
 						}
 						else // no sound but still recording
@@ -95,7 +104,7 @@ namespace praatinvoke
 					{
 						Console.WriteLine("no sound");
 						upcomingSoundCache.Clear();
-						pauseCountup = Constants.PAUSECOUNTUP;
+						pauseCountup = PAUSECOUNTUP;
 					}
 				}
 			}
@@ -183,13 +192,13 @@ namespace praatinvoke
 				{
 					Directory.CreateDirectory(Environment.CurrentDirectory+Path.DirectorySeparatorChar+"sndcap");
 				}
-				soundfInfo.channels = Constants.NUM_CHANNELS;
-				soundfInfo.samplerate = Constants.SAMPLE_RATE;
+				soundfInfo.channels = NUM_CHANNELS;
+				soundfInfo.samplerate = SAMPLE_RATE;
 				soundfInfo.format = ((int)LibsndfileWrapper.soundFormat.SF_FORMAT_WAV | (int)LibsndfileWrapper.soundFormat.SF_FORMAT_FLOAT);
 				string sndcapfile = nextSoundFile();
 				soundf = LibsndfileWrapper.sf_open(sndcapfile, (int)LibsndfileWrapper.fileMode.SFM_WRITE, ref soundfInfo);
-				pauseCountup = Constants.PAUSECOUNTUP;
-				pauseCountdown = Constants.PAUSECOUNTDOWN;
+				pauseCountup = PAUSECOUNTUP;
+				pauseCountdown = PAUSECOUNTDOWN;
 			}
 			catch (Exception e)
 			{

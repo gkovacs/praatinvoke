@@ -35,13 +35,16 @@ namespace praatinvoke
 	{
 		public ReceiveSamplesDelegate samplesDelegate;
 		public Audio audio = null;
+		public int NUM_CHANNELS = 1;
+		public int SAMPLE_RATE = 44100;
+		public uint FRAMESPERBUFFER = 1024;
 		
 		public PortAudioRecord()
 		{
 			try
 			{
 				Audio.LoggingEnabled = true;
-				audio = new Audio(Constants.NUM_CHANNELS, 2, Constants.SAMPLE_RATE, Constants.FRAMESPERBUFFER,
+				audio = new Audio(NUM_CHANNELS, 2, SAMPLE_RATE, FRAMESPERBUFFER,
 					new PortAudio.PaStreamCallbackDelegate(recordCallback));
 			}
 			catch (Exception e)

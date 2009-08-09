@@ -39,7 +39,6 @@
     <Compile Include="Main.cs" />
     <Compile Include="AssemblyInfo.cs" />
     <Compile Include="LibsndfileWrapper.cs" />
-    <Compile Include="Constants.cs" />
     <Compile Include="PortAudioRecord.cs" />
     <Compile Include="WaveWriter.cs" />
     <Compile Include="PraatInvoke.cs" />
@@ -71,6 +70,7 @@
     <Compile Include="Tuples.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="PraatOutput.cs" />
+    <Compile Include="Constants.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
