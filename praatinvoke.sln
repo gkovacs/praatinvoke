@@ -19,7 +19,7 @@ Global
 		StartupItem = praatinvoke.csproj
 		Policies = $0
 		$0.StandardHeader = $1
-		$1.inheritsSet = MITX11License
+		$1.inheritsSet = GPLv2License
 		$0.DotNetNamingPolicy = $2
 		$2.DirectoryNamespaceAssociation = None
 		$2.ResourceNamePolicy = FileFormatDefault
