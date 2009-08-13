@@ -43,8 +43,8 @@ namespace praatinvoke
 //					
 //				}
 				//rec.Sleep(-1);
-				FaceAPI fca = new FaceAPI();
-				fca.Run();
+				//FaceAPI fca = new FaceAPI();
+				//fca.Run();
 				
 				System.Threading.Thread.Sleep(System.Threading.Timeout.Infinite);
 				rec.Stop();

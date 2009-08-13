@@ -29,7 +29,7 @@ namespace praatinvoke
 		public int SAMPLE_RATE = 44100;
 		public double SCALEPOWER = 1.0;
 		public double SILENCETHRESHOLD = 1.0;
-		public int MAGNIFICATION = 10;
+		public int MAGNIFICATION = 5;
 		public double BACKGROUND = 30.0;
 		public uint FRAMESPERBUFFER = 1024;
 		public int PAUSECOUNTDOWN = 12;

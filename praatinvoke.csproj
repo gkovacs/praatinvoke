@@ -44,59 +44,42 @@
     <Compile Include="PortAudioRecord.cs" />
     <Compile Include="WaveWriter.cs" />
     <Compile Include="PraatInvoke.cs" />
-    <Compile Include="PortAudioSharp\ASIODeviceControl.Designer.cs">
-      <DependentUpon>src\PortAudioSharp\ASIODeviceControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="PortAudioSharp\ASIODeviceControl.cs" />
-    <Compile Include="PortAudioSharp\ApiHostSelectionForm.Designer.cs">
-      <DependentUpon>src\PortAudioSharp\ApiHostSelectionForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="PortAudioSharp\ApiHostSelectionForm.cs" />
-    <Compile Include="PortAudioSharp\Audio.cs" />
-    <Compile Include="PortAudioSharp\AudioSettingsControl.Designer.cs">
-      <DependentUpon>src\PortAudioSharp\AudioSettingsControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="PortAudioSharp\AudioSettingsControl.cs" />
-    <Compile Include="PortAudioSharp\DeviceItem.cs" />
-    <Compile Include="PortAudioSharp\DirectSoundDeviceControl.Designer.cs">
-      <DependentUpon>src\PortAudioSharp\DirectSoundDeviceControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="PortAudioSharp\DirectSoundDeviceControl.cs" />
-    <Compile Include="PortAudioSharp\HostApiItem.cs" />
-    <Compile Include="PortAudioSharp\MMEDeviceControl.Designer.cs">
-      <DependentUpon>src\PortAudioSharp\MMEDeviceControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="PortAudioSharp\MMEDeviceControl.cs" />
-    <Compile Include="PortAudioSharp\PortAudio.cs" />
-    <Compile Include="PortAudioSharp\PortAudioASIO.cs" />
     <Compile Include="Tuples.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="PraatOutput.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="FaceAPI.cs" />
     <Compile Include="FaceAPIDatatypes.cs" />
+    <Compile Include="PortAudioSharp\src\ApiHostSelectionForm.cs" />
+    <Compile Include="PortAudioSharp\src\ApiHostSelectionForm.Designer.cs" />
+    <Compile Include="PortAudioSharp\src\ASIODeviceControl.cs" />
+    <Compile Include="PortAudioSharp\src\ASIODeviceControl.Designer.cs" />
+    <Compile Include="PortAudioSharp\src\Audio.cs" />
+    <Compile Include="PortAudioSharp\src\AudioSettingsControl.cs" />
+    <Compile Include="PortAudioSharp\src\AudioSettingsControl.Designer.cs" />
+    <Compile Include="PortAudioSharp\src\DeviceItem.cs" />
+    <Compile Include="PortAudioSharp\src\DirectSoundDeviceControl.cs" />
+    <Compile Include="PortAudioSharp\src\DirectSoundDeviceControl.Designer.cs" />
+    <Compile Include="PortAudioSharp\src\HostApiItem.cs" />
+    <Compile Include="PortAudioSharp\src\MMEDeviceControl.cs" />
+    <Compile Include="PortAudioSharp\src\MMEDeviceControl.Designer.cs" />
+    <Compile Include="PortAudioSharp\src\PortAudio.cs" />
+    <Compile Include="PortAudioSharp\src\PortAudioASIO.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
-  <ItemGroup>
-    <EmbeddedResource Include="PortAudioSharp\ASIODeviceControl.resx">
-      <DependentUpon>src\PortAudioSharp\ASIODeviceControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="PortAudioSharp\ApiHostSelectionForm.resx">
-      <DependentUpon>src\PortAudioSharp\ApiHostSelectionForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="PortAudioSharp\AudioSettingsControl.resx">
-      <DependentUpon>src\PortAudioSharp\AudioSettingsControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="PortAudioSharp\DirectSoundDeviceControl.resx">
-      <DependentUpon>src\PortAudioSharp\DirectSoundDeviceControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="PortAudioSharp\MMEDeviceControl.resx">
-      <DependentUpon>src\PortAudioSharp\MMEDeviceControl.cs</DependentUpon>
-    </EmbeddedResource>
-  </ItemGroup>
   <ItemGroup>
     <None Include="app.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="PortAudioSharp\src\ApiHostSelectionForm.resources" />
+    <None Include="PortAudioSharp\src\ApiHostSelectionForm.resx" />
+    <None Include="PortAudioSharp\src\ASIODeviceControl.resources" />
+    <None Include="PortAudioSharp\src\ASIODeviceControl.resx" />
+    <None Include="PortAudioSharp\src\AudioSettingsControl.resources" />
+    <None Include="PortAudioSharp\src\AudioSettingsControl.resx" />
+    <None Include="PortAudioSharp\src\DirectSoundDeviceControl.resources" />
+    <None Include="PortAudioSharp\src\DirectSoundDeviceControl.resx" />
+    <None Include="PortAudioSharp\src\MMEDeviceControl.resources" />
+    <None Include="PortAudioSharp\src\MMEDeviceControl.resx" />
   </ItemGroup>
 </Project>
