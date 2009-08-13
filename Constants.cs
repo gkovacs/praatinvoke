@@ -22,4 +22,7 @@ namespace praatinvoke
 	public delegate void ReceiveSamplesDelegate(float[] samples);
 	public delegate void CallPraatDelegate(string wavfile);
 	public delegate void OutputPraatDelegate(Pair<string, float>[] output);
+	public delegate void LandmarkDelegate(smFaceLandmark[] landmarks);
+	unsafe public delegate void FaceDataCallback(void *user_data, smEngineFaceData face_data, smCameraVideoFrame video_frame);
+	unsafe public delegate void HeadPoseCallback(void *user_data, smEngineHeadPoseData head_pose, smCameraVideoFrame video_frame);
 }

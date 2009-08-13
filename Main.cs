@@ -42,7 +42,11 @@ namespace praatinvoke
 //				{
 //					
 //				}
-				rec.Sleep(-1);
+				//rec.Sleep(-1);
+				FaceAPI fca = new FaceAPI();
+				fca.Run();
+				
+				System.Threading.Thread.Sleep(System.Threading.Timeout.Infinite);
 				rec.Stop();
 			}
 			catch (Exception e)
