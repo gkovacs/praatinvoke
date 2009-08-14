@@ -1,9 +1,9 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.21022</ProductVersion>
+    <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{3B035C57-C504-4F99-8629-BA6BE168F5E8}</ProjectGuid>
     <OutputType>Exe</OutputType>
@@ -36,10 +36,6 @@
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
-    <Reference Include="FaceAPIDatatypes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>FaceAPIDatatypes.dll</HintPath>
-    </Reference>
     <Reference Include="FaceAPIWrapper, Version=1.0.3513.18280, Culture=neutral, PublicKeyToken=null">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>FaceAPIWrapper.dll</HintPath>
@@ -56,22 +52,38 @@
     <Compile Include="Extensions.cs" />
     <Compile Include="PraatOutput.cs" />
     <Compile Include="Constants.cs" />
-    <Compile Include="PortAudioSharp\src\ApiHostSelectionForm.cs" />
+    <Compile Include="PortAudioSharp\src\ApiHostSelectionForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="PortAudioSharp\src\ApiHostSelectionForm.Designer.cs" />
-    <Compile Include="PortAudioSharp\src\ASIODeviceControl.cs" />
+    <Compile Include="PortAudioSharp\src\ASIODeviceControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="PortAudioSharp\src\ASIODeviceControl.Designer.cs" />
     <Compile Include="PortAudioSharp\src\Audio.cs" />
-    <Compile Include="PortAudioSharp\src\AudioSettingsControl.cs" />
+    <Compile Include="PortAudioSharp\src\AudioSettingsControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="PortAudioSharp\src\AudioSettingsControl.Designer.cs" />
     <Compile Include="PortAudioSharp\src\DeviceItem.cs" />
-    <Compile Include="PortAudioSharp\src\DirectSoundDeviceControl.cs" />
+    <Compile Include="PortAudioSharp\src\DirectSoundDeviceControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="PortAudioSharp\src\DirectSoundDeviceControl.Designer.cs" />
     <Compile Include="PortAudioSharp\src\HostApiItem.cs" />
-    <Compile Include="PortAudioSharp\src\MMEDeviceControl.cs" />
+    <Compile Include="PortAudioSharp\src\MMEDeviceControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="PortAudioSharp\src\MMEDeviceControl.Designer.cs" />
     <Compile Include="PortAudioSharp\src\PortAudio.cs" />
     <Compile Include="PortAudioSharp\src\PortAudioASIO.cs" />
     <Compile Include="FaceAPIOutput.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="FaceAPIDatatypes\FaceAPIDatatypes.csproj">
+      <Project>{71A578D4-D0D8-40C3-981D-DF27A1513383}</Project>
+      <Name>FaceAPIDatatypes</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

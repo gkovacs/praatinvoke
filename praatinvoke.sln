@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 10.00
 # Visual Studio 2008
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "praatinvoke", "praatinvoke.csproj", "{3B035C57-C504-4F99-8629-BA6BE168F5E8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FaceAPIDatatypes", "FaceAPIDatatypes\FaceAPIDatatypes.csproj", "{71A578D4-D0D8-40C3-981D-DF27A1513383}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -13,6 +15,13 @@ Global
 		{3B035C57-C504-4F99-8629-BA6BE168F5E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3B035C57-C504-4F99-8629-BA6BE168F5E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3B035C57-C504-4F99-8629-BA6BE168F5E8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{71A578D4-D0D8-40C3-981D-DF27A1513383}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{71A578D4-D0D8-40C3-981D-DF27A1513383}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{71A578D4-D0D8-40C3-981D-DF27A1513383}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{71A578D4-D0D8-40C3-981D-DF27A1513383}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		StartupItem = praatinvoke.csproj
