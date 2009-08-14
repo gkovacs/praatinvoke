@@ -30,6 +30,7 @@ namespace praatinvoke
 					Console.WriteLine("not enough arguments");
 					return;
 				}
+				
 				PraatInvoke pri = new PraatInvoke(args[0], args[1]);
 				PraatOutput pao = new PraatOutput();
 				WaveWriter wwr = new WaveWriter();
@@ -38,6 +39,7 @@ namespace praatinvoke
 				wwr.SetPraatDelegate(pri.GetPraatDelegate());
 				pri.SetOutputPraatDelegate(pao.GetPraatOutputDelegate());
 				rec.audio.Start();
+				
 //				while (true)
 //				{
 //					

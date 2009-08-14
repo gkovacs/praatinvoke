@@ -43,19 +43,21 @@ namespace praatinvoke
 		
 		unsafe public static void FaceDataCBF(void *user_data, smEngineFaceData face_data, smCameraVideoFrame video_frame)
 		{
-			Console.WriteLine("got face data");
-			smFaceLandmark[] landmarks = new smFaceLandmark[face_data.num_landmarks];
-			for (int i = 0; i < face_data.num_landmarks; ++i)
-			{
-				landmarks[i] = face_data.landmarks[i];
-			}
-			LandmarkCBF(landmarks);
+			Console.WriteLine("got face data "+face_data.num_landmarks.ToString());
+			Console.WriteLine((*face_data.landmarks).id);
+			//smFaceLandmark[] landmarks = new smFaceLandmark[face_data.num_landmarks];
+			//for (int i = 0; i < face_data.num_landmarks; ++i)
+			//{
+				//Console.WriteLine(face_data.landmarks[i].id);
+				//landmarks[i] = face_data.landmarks[i];
+			//}
+			//LandmarkCBF(landmarks);
 		}
 		
 		unsafe public static void HeadPoseCBF(void *user_data, smEngineHeadPoseData head_pose, smCameraVideoFrame video_frame)
 		{
-			Console.WriteLine("got head pose");
-			Console.WriteLine(head_pose.confidence);
+			//Console.WriteLine("got head pose");
+			//Console.WriteLine(head_pose.confidence);
 		}
 		
 		unsafe public HeadPoseCallback GetHeadPoseDelegate()

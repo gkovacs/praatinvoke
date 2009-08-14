@@ -39,7 +39,7 @@ namespace praatinvoke
 		public int pauseCountup;
 		public int pauseCountdown;
 		public IntPtr soundf;
-		LibsndfileWrapper.SF_INFO soundfInfo = new LibsndfileWrapper.SF_INFO();
+		LibsndfileWrapper.SF_INFO soundfInfo;
 		public List<float> upcomingSoundCache = new List<float>();
 		
 		public void ReceiveSamples(float[] inpSamples)
