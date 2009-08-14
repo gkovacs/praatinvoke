@@ -25,14 +25,14 @@ namespace praatinvoke
 	using smPixel = smCoord2f;
 	using smPos3f = smCoord3f;
 	
-	[StructLayout(LayoutKind.Sequential, Pack=8)]
+	[StructLayout(LayoutKind.Sequential)]
 	public struct smCoord2f
 	{
 		public float x;
 		public float y;
 	}
 	
-	[StructLayout(LayoutKind.Sequential, Pack=8)]
+	[StructLayout(LayoutKind.Sequential)]
 	public struct smCoord3f
 	{
 		public float x;
@@ -40,14 +40,14 @@ namespace praatinvoke
 		public float z;
 	}
 	
-	[StructLayout(LayoutKind.Sequential, Pack=8)]
+	[StructLayout(LayoutKind.Sequential)]
 	public struct smFaceTexCoord
 	{
 		public float u;
 		public float v;
 	}
 	
-	[StructLayout(LayoutKind.Sequential, Pack=8)]
+	[StructLayout(LayoutKind.Sequential)]
 	public struct smFaceLandmark
 	{
 		public smFaceCoord fc;
@@ -57,41 +57,33 @@ namespace praatinvoke
 		public smCoord3f wc;
 	}
 	
-	[StructLayout(LayoutKind.Sequential, Pack=8)]
-	unsafe public struct smEngineFaceData
+	/*
+	public struct smEngineFaceData
 	{
 		public smFaceLandmark *landmarks;
+		//public IntPtr landmarks;
 		public int num_landmarks;
 		public smPixel origin_pc;
 		public smCoord3f origin_wc;
-		public smFaceTexture *texture;
+		public IntPtr texture;
+		//public smFaceTexture *texture;
 	}
+	*/
 	
-	[StructLayout(LayoutKind.Sequential, Pack=8)]
-	unsafe public struct smFaceTexture
+	public struct smFaceTexture
 	{
 		// TODO
 	}
 	
-	[StructLayout(LayoutKind.Sequential, Pack=8)]
-	public struct smRotEuler
-	{
-		public float x_rads;
-		public float y_rads;
-		public float z_rads;
-	}
-	
-	[StructLayout(LayoutKind.Sequential, Pack=8)]
 	public struct smEngineHeadPoseData
 	{
 		public float confidence;
-		public smPos3f head_pos;
-		public smRotEuler head_rot;
-		public smPos3f left_eye_pos;
-		public smPos3f right_eye_pos;
+		public smCoord3f head_pos;
+		public smCoord3f head_rot;
+		public smCoord3f left_eye_pos;
+		public smCoord3f right_eye_pos;
 	}
 	
-	[StructLayout(LayoutKind.Sequential, Pack=8)]
 	public struct smCameraVideoFrame
 	{
 		// TODO

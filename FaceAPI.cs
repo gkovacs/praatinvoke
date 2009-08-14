@@ -18,6 +18,7 @@
 
 using System;
 using System.Runtime.InteropServices;
+using FaceAPIWrapper;
 
 namespace praatinvoke
 {
@@ -27,10 +28,10 @@ namespace praatinvoke
 		public HeadPoseCallback headposecbf;
 		public LandmarkDelegate outputlandmark;
 		
-		[DllImport ("faceapi-wrapper.dll", CallingConvention=CallingConvention.Cdecl)]
-		static extern void testme();
+//		[DllImport ("TestAppConsole.dll", CallingConvention=CallingConvention.Cdecl)]
+//		static extern void testme();
 		
-		[DllImport ("faceapi-wrapper.dll", CallingConvention=CallingConvention.StdCall)]
+		[DllImport ("TestAppConsole.dll", CallingConvention=CallingConvention.Cdecl)]
 		static extern void run(HeadPoseCallback hpcf, FaceDataCallback fdcf);
 		
 		public static void LandmarkCBF(smFaceLandmark[] landmarks)
@@ -41,10 +42,18 @@ namespace praatinvoke
 			}
 		}
 		
-		unsafe public static void FaceDataCBF(void *user_data, smEngineFaceData face_data, smCameraVideoFrame video_frame)
+		public unsafe static void FaceDataCBF(IntPtr user_data, smEngineFaceData face_data, smCameraVideoFrame video_frame)
 		{
-			Console.WriteLine("got face data "+face_data.num_landmarks.ToString());
-			Console.WriteLine((*face_data.landmarks).id);
+			
+			Console.WriteLine("got face data ");
+			Console.WriteLine(face_data.num_landmarks.ToString());
+			Console.WriteLine("test1");
+			smFaceLandmark landmark = *(face_data.landmarks);
+			//smFaceLandmark landmark = (smFaceLandmark)//Marshal.PtrToStructure(face_data.landmarks, typeof(smFaceLandmark));
+			Console.WriteLine("test2");
+//			Console.WriteLine(landmark.id);
+			Console.WriteLine("test3");
+			//Console.WriteLine(face_data.landmarks->id.ToString());
 			//smFaceLandmark[] landmarks = new smFaceLandmark[face_data.num_landmarks];
 			//for (int i = 0; i < face_data.num_landmarks; ++i)
 			//{
@@ -52,25 +61,29 @@ namespace praatinvoke
 				//landmarks[i] = face_data.landmarks[i];
 			//}
 			//LandmarkCBF(landmarks);
+			
 		}
 		
-		unsafe public static void HeadPoseCBF(void *user_data, smEngineHeadPoseData head_pose, smCameraVideoFrame video_frame)
+		public static void HeadPoseCBF(IntPtr user_data, smEngineHeadPoseData head_pose, smCameraVideoFrame video_frame)
 		{
-			//Console.WriteLine("got head pose");
-			//Console.WriteLine(head_pose.confidence);
+			Console.WriteLine("got head pose");
+			Console.WriteLine(head_pose.confidence);
+			Console.WriteLine(head_pose.head_rot.x_rads);
+				Console.WriteLine(head_pose.head_rot.y_rads);
+				Console.WriteLine(head_pose.head_rot.z_rads);
 		}
 		
-		unsafe public HeadPoseCallback GetHeadPoseDelegate()
+		public HeadPoseCallback GetHeadPoseDelegate()
 		{
 			return new HeadPoseCallback(HeadPoseCBF);
 		}
 		
-		unsafe public FaceDataCallback GetFaceDataDelegate()
+		public FaceDataCallback GetFaceDataDelegate()
 		{
 			return new FaceDataCallback(FaceDataCBF);
 		}
 		
-		unsafe public void Run()
+		public void Run()
 		{
 			run(HeadPoseCBF, FaceDataCBF);
 		}

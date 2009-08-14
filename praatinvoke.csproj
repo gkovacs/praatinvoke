@@ -36,6 +36,14 @@
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
+    <Reference Include="FaceAPIDatatypes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>FaceAPIDatatypes.dll</HintPath>
+    </Reference>
+    <Reference Include="FaceAPIWrapper, Version=1.0.3513.18280, Culture=neutral, PublicKeyToken=null">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>FaceAPIWrapper.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Main.cs" />
@@ -48,8 +56,6 @@
     <Compile Include="Extensions.cs" />
     <Compile Include="PraatOutput.cs" />
     <Compile Include="Constants.cs" />
-    <Compile Include="FaceAPI.cs" />
-    <Compile Include="FaceAPIDatatypes.cs" />
     <Compile Include="PortAudioSharp\src\ApiHostSelectionForm.cs" />
     <Compile Include="PortAudioSharp\src\ApiHostSelectionForm.Designer.cs" />
     <Compile Include="PortAudioSharp\src\ASIODeviceControl.cs" />
@@ -65,6 +71,7 @@
     <Compile Include="PortAudioSharp\src\MMEDeviceControl.Designer.cs" />
     <Compile Include="PortAudioSharp\src\PortAudio.cs" />
     <Compile Include="PortAudioSharp\src\PortAudioASIO.cs" />
+    <Compile Include="FaceAPIOutput.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
