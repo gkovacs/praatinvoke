@@ -36,10 +36,6 @@
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
-    <Reference Include="FaceAPIWrapper, Version=1.0.3513.18280, Culture=neutral, PublicKeyToken=null">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>FaceAPIWrapper.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Main.cs" />
@@ -83,6 +79,10 @@
     <ProjectReference Include="FaceAPIDatatypes\FaceAPIDatatypes.csproj">
       <Project>{71A578D4-D0D8-40C3-981D-DF27A1513383}</Project>
       <Name>FaceAPIDatatypes</Name>
+    </ProjectReference>
+    <ProjectReference Include="FaceAPIWrapper\FaceAPIWrapper.vcproj">
+      <Project>{15BD1934-D344-4554-8157-11251A1338E4}</Project>
+      <Name>FaceAPIWrapper</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
