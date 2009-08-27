@@ -40,7 +40,7 @@ namespace praatinvoke
 					return;
 				}
 				
-				/*
+				
 				PraatInvoke pri = new PraatInvoke(args[0], args[1]);
 				PraatOutput pao = new PraatOutput();
 				WaveWriter wwr = new WaveWriter();
@@ -49,7 +49,7 @@ namespace praatinvoke
 				wwr.SetPraatDelegate(pri.GetPraatDelegate());
 				pri.SetOutputPraatDelegate(pao.GetPraatOutputDelegate());
 				rec.audio.Start();
-				*/
+				
 //				while (true)
 //				{
 //					
@@ -57,11 +57,13 @@ namespace praatinvoke
 				//rec.Sleep(-1);
 				//FaceAPI fca = new FaceAPI();
 				//fca.Run();
+                /*
 				FaceAPIOutput fao = new FaceAPIOutput();
 				FaceAPIWrapper.FaceInvoke fci = new FaceAPIWrapper.FaceInvoke();
 				fci.SetHeadPoseDelegate(fao.GetHeadPoseDelegate());
 				fci.SetLandmarksDelegate(fao.GetLandmarksDelegate());
 				fci.Run();
+                 */
 				
 				System.Threading.Thread.Sleep(System.Threading.Timeout.Infinite);
 				//rec.Stop();
