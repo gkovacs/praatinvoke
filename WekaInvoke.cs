@@ -106,5 +106,25 @@ namespace praatinvoke
 			}
 			return null;
 		}
+		
+		public void WekaPrintOutput(double[] results)
+		{
+			Console.WriteLine(results.mkstring());
+			Console.WriteLine(classifications[results.greatest()]);
+			Console.WriteLine(classifications[results.smallest()]);
+		}
+		
+		public void WekaInputDelegate(Pair<string, double>[] encinstance)
+		{
+			weka.core.Instance inst = new weka.core.Instance(attributes.Length+1);
+			inst.setDataset(trainset);
+			foreach (Pair<string, double> x in encinstance)
+			{
+				if (x == null)
+					continue;
+				inst.setValue(FindAttribute(x.first), x.second);
+			}
+			WekaPrintOutput(ClassifyInstance(inst));
+		}
 	}
 }

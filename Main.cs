@@ -46,6 +46,13 @@ namespace praatinvoke
 				Console.WriteLine(wki.attributes.mkstring());
 				Console.WriteLine(wki.classifications.mkstring());
 				
+				Pair<string, double>[] encinstance = new Pair<string, double>[wki.attributes.Length+1];
+				encinstance[0] = new Pair<string, double>("sepallength", 6.3);
+				encinstance[1] = new Pair<string, double>("sepalwidth", 2.4);
+				encinstance[2] = new Pair<string, double>("petallength", 4.8);
+				encinstance[3] = new Pair<string, double>("petalwidth", 1.6);
+				wki.WekaInputDelegate(encinstance);
+/*
 				weka.core.Instance inst = new weka.core.Instance(wki.attributes.Length+1);
 				inst.setDataset(wki.trainset);
 				inst.setValue(wki.FindAttribute("sepallength"), 6.3);
@@ -55,7 +62,7 @@ namespace praatinvoke
 				double[] results = wki.ClassifyInstance(inst);
 				Console.WriteLine(results.mkstring());
 				Console.WriteLine(wki.classifications[results.greatest()]);
-				
+*/
 				/*
 				PraatInvoke pri = new PraatInvoke(args[0], args[1]);
 				PraatOutput pao = new PraatOutput();
