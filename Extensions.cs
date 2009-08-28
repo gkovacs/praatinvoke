@@ -185,28 +185,12 @@ namespace praatinvoke
 		
 		public static string mkstring<T, U, V>(this Triple<T, U, V> str)
 		{
-			try
-			{
-				return "("+str.first.ToString()+","+str.second.ToString()+","+str.third.ToString()+")";
-			}
-			catch (Exception e)
-			{
-				Console.WriteLine(e);
-				return null;
-			}
+			return str.ToString();
 		}
 		
 		public static string mkstring<T, U, V, W, X, Y>(this Pair< Triple<T, U, V>, Triple<W, X, Y> > str)
 		{
-			try
-			{
-				return "{"+str.first.mkstring()+","+str.second.mkstring()+"}";
-			}
-			catch (Exception e)
-			{
-				Console.WriteLine(e);
-				return null;
-			}
+			return str.ToString();
 		}
 		
 		public static string mkstring<T, U, W, X>(this Pair< Pair<T, U>, Pair<W, X> > str)

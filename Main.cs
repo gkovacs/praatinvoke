@@ -48,9 +48,10 @@ namespace praatinvoke
 				Console.WriteLine(wki.classifications.mkstring());
 				
 				Pair<string, double>[] encinstance = new Pair<string, double>[wki.attributes.Length+1];
-				encinstance[0] = new Pair<string, double>("sepallength", 6.3);
-				encinstance[1] = new Pair<string, double>("sepalwidth", 2.4);
-				encinstance[2] = new Pair<string, double>("petallength", 4.8);
+				encinstance[0] = new Pair<string, double>("atr", 10.5);
+				encinstance[1] = new Pair<string, double>("snr", 4.2);
+				encinstance[2] = new Pair<string, double>("sepalwidth", 2.4);
+				encinstance[4] = new Pair<string, double>("petallength", 4.8);
 				encinstance[3] = new Pair<string, double>("petalwidth", 1.6);
 				
 				wki.SetWekaOutputDelegate(wko.GetWekaOutputDelegate());

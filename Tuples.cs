@@ -41,6 +41,18 @@ namespace praatinvoke
 			first = f;
 			second = s;
 		}
+		public override string ToString()
+		{
+			try
+			{
+				return "("+first.ToString()+","+second.ToString()+")";
+			}
+			catch (Exception e)
+			{
+				Console.WriteLine(e);
+				return null;
+			}
+		}
 	}
 
 	public class Triple<T, U, V>
@@ -57,6 +69,18 @@ namespace praatinvoke
 			first = f;
 			second = s;
 			third = t;
+		}
+		public override string ToString()
+		{
+			try
+			{
+				return "("+first.ToString()+","+second.ToString()+","+third.ToString()+")";
+			}
+			catch (Exception e)
+			{
+				Console.WriteLine(e);
+				return null;
+			}
 		}
 	}
 }

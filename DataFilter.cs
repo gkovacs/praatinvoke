@@ -60,6 +60,7 @@ namespace praatinvoke
 					continue;
 				outputpairs[i] = new Pair<string, double>(attributes[i], nval);
 			}
+			Console.WriteLine(outputpairs.mkstring());
 			dataoutput(outputpairs);
 		}
 		
