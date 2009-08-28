@@ -31,17 +31,31 @@ namespace praatinvoke
 {
 	public class FaceAPIOutput
 	{
-		static void PrintHeadpose(smEngineHeadPoseData_cli headpose)
+		public InputWekaDelegate wekainput;
+		
+		public static void PrintHeadpose(smEngineHeadPoseData_cli headpose)
 		{
 			Console.WriteLine(headpose.mkstring());
 		}
 		
-		static void PrintLandmarks(smFaceLandmark_cli[] landmarks)
+		public static void PrintLandmarks(smFaceLandmark_cli[] landmarks)
 		{
 			for (int i = 0; i < landmarks.Length; ++i)
 			{
 				Console.WriteLine(landmarks[i].mkstring());
 			}
+		}
+		
+		public void OutputRawDataPairs(smFaceLandmark_cli[] landmarks)
+		{
+			Pair<string, double>[] valpairs = new Pair<string, double>[landmarks.Length * 3];
+			for (int i = 0; i < landmarks.Length; ++i)
+			{
+				valpairs[i*3] = new Pair<string, double>("landmark_"+landmarks[i].id+"_fc_x", landmarks[i].fc.x);
+				valpairs[i*3 + 1] = new Pair<string, double>("landmark_"+landmarks[i].id+"_fc_y", landmarks[i].fc.y);
+				valpairs[i*3 + 2] = new Pair<string, double>("landmark_"+landmarks[i].id+"_fc_z", landmarks[i].fc.z);
+			}
+			wekainput(valpairs);
 		}
 		
 		public HeadPoseDelegate GetHeadPoseDelegate()
@@ -51,7 +65,12 @@ namespace praatinvoke
 		
 		public LandmarksDelegate GetLandmarksDelegate()
 		{
-			return new LandmarksDelegate(PrintLandmarks);
+			return new LandmarksDelegate(OutputRawDataPairs);
+		}
+		
+		public void SetWekaInputDelegate(InputWekaDelegate wd)
+		{
+			wekainput = wd;
 		}
 	}
 }

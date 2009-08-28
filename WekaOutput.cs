@@ -28,8 +28,6 @@ using System;
 
 namespace praatinvoke
 {
-	
-	
 	public class WekaOutput
 	{
 		public string[] classifications = null;

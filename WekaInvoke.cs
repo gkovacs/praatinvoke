@@ -26,7 +26,6 @@
 
 using System;
 using System.Collections.Generic;
-using java.util;
 using weka.classifiers.bayes;
 using weka.core;
 using weka.core.converters;
@@ -87,7 +86,7 @@ namespace praatinvoke
 			{
 				if (!structure.attribute(i).isNominal())
 					continue;
-				Enumeration en = structure.attribute(i).enumerateValues();
+				java.util.Enumeration en = structure.attribute(i).enumerateValues();
 				while (en.hasMoreElements())
 				{
 					attrs.Add(en.nextElement().ToString());
