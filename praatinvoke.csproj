@@ -84,6 +84,7 @@
     <Compile Include="WekaInvoke.cs" />
     <Compile Include="WekaOutput.cs" />
     <Compile Include="DataFilter.cs" />
+    <Compile Include="OpGroup.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="FaceAPIDatatypes\FaceAPIDatatypes.csproj">
