@@ -34,29 +34,30 @@ namespace praatinvoke
 		{
 			try
 			{
-				if (args.Length < 2)
-				{
-					Console.WriteLine("not enough arguments");
-					return;
-				}
+				//if (args.Length < 2)
+				//{
+				//	Console.WriteLine("not enough arguments");
+				//	return;
+				//}
 				
-				WekaInvoke wki = new WekaInvoke("iris.arff");
+				WekaInvoke wki = new WekaInvoke("train.arff");
 				DataFilter dtf = new DataFilter(wki.attributes);
 				WekaOutput wko = new WekaOutput(wki.classifications);
 				
 				Console.WriteLine(wki.attributes.mkstring());
 				Console.WriteLine(wki.classifications.mkstring());
-				
+				/*
 				Pair<string, double>[] encinstance = new Pair<string, double>[wki.attributes.Length+1];
 				encinstance[0] = new Pair<string, double>("atr", 10.5);
 				encinstance[1] = new Pair<string, double>("snr", 4.2);
 				encinstance[2] = new Pair<string, double>("sepalwidth", 2.4);
 				encinstance[4] = new Pair<string, double>("petallength", 4.8);
 				encinstance[3] = new Pair<string, double>("petalwidth", 1.6);
-				
+				*/
 				wki.SetWekaOutputDelegate(wko.GetWekaOutputDelegate());
 				dtf.SetFilterOutputDelegate(wki.GetWekaInputDelegate());
-				dtf.FilterData(encinstance);
+				//dtf.FilterData(encinstance);
+				
 /*
 				weka.core.Instance inst = new weka.core.Instance(wki.attributes.Length+1);
 				inst.setDataset(wki.trainset);
@@ -85,13 +86,14 @@ namespace praatinvoke
 				//rec.Sleep(-1);
 				//FaceAPI fca = new FaceAPI();
 				//fca.Run();
-                /*
+                
 				FaceAPIOutput fao = new FaceAPIOutput();
 				FaceAPIWrapper.FaceInvoke fci = new FaceAPIWrapper.FaceInvoke();
 				fci.SetHeadPoseDelegate(fao.GetHeadPoseDelegate());
 				fci.SetLandmarksDelegate(fao.GetLandmarksDelegate());
+				fao.SetDataFilterDelegate(dtf.GetFilterInputDelegate());
 				fci.Run();
-                 */
+                
 				
 				//System.Threading.Thread.Sleep(System.Threading.Timeout.Infinite);
 				//rec.Stop();

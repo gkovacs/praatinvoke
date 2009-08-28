@@ -35,7 +35,7 @@ namespace praatinvoke
 		
 		public static void PrintHeadpose(smEngineHeadPoseData_cli headpose)
 		{
-			Console.WriteLine(headpose.mkstring());
+			//Console.WriteLine(headpose.mkstring());
 		}
 		
 		public static void PrintLandmarks(smFaceLandmark_cli[] landmarks)
