@@ -41,16 +41,6 @@ namespace praatinvoke
 			return false;
 		}
 		
-		public static bool Contains(this IEnumerable<OpGroup> strl, int item)
-		{
-			foreach (OpGroup x in strl)
-			{
-				if (x.Contains(item))
-					return true;
-			}
-			return false;
-		}
-		
 		public static bool ContainsInFirst<T, U>(this IEnumerable< Pair<T, U> > strl, T item)
 		{
 			foreach (Pair<T, U> x in strl)
@@ -81,6 +71,16 @@ namespace praatinvoke
 					total += sep;
 				total += x;
 				++i;
+			}
+			return total;
+		}
+		
+		public static double Sum(this IEnumerable<double> strl)
+		{
+			double total = 0.0;
+			foreach (double x in strl)
+			{
+				total += x;
 			}
 			return total;
 		}
@@ -125,6 +125,20 @@ namespace praatinvoke
 			return strl.SumSquares().SquareRoot();
 		}
 		
+		public static double Distance(this IEnumerable<double> strl)
+		{
+			IEnumerator<double> n = strl.GetEnumerator();
+			double total = 0.0;
+			double diff = 0.0;
+			while (n.MoveNext())
+			{
+				diff = n.Current;
+				n.MoveNext();
+				total += Math.Abs(diff - n.Current).Squared();
+			}
+			return total.SquareRoot();
+		}
+		
 		public static float Distance(this IEnumerable<float> strl)
 		{
 			IEnumerator<float> n = strl.GetEnumerator();
@@ -139,11 +153,47 @@ namespace praatinvoke
 			return total.SquareRoot();
 		}
 		
+		public static double Distance2D(this IEnumerable<double> strl)
+		{
+			IEnumerator<double> n = strl.GetEnumerator();
+			double total = 0.0;
+			double diff = 0.0;
+			n.MoveNext();
+			diff = n.Current;
+			n.MoveNext();
+			total += Math.Abs(diff - n.Current).Squared();
+			n.MoveNext();
+			diff = n.Current;
+			n.MoveNext();
+			total += Math.Abs(diff - n.Current).Squared();
+			return total.SquareRoot();
+		}
+		
 		public static float Distance2D(this IEnumerable<float> strl)
 		{
 			IEnumerator<float> n = strl.GetEnumerator();
 			float total = 0.0f;
 			float diff = 0.0f;
+			n.MoveNext();
+			diff = n.Current;
+			n.MoveNext();
+			total += Math.Abs(diff - n.Current).Squared();
+			n.MoveNext();
+			diff = n.Current;
+			n.MoveNext();
+			total += Math.Abs(diff - n.Current).Squared();
+			return total.SquareRoot();
+		}
+		
+		public static double Distance3D(this IEnumerable<double> strl)
+		{
+			IEnumerator<double> n = strl.GetEnumerator();
+			double total = 0.0;
+			double diff = 0.0;
+			n.MoveNext();
+			diff = n.Current;
+			n.MoveNext();
+			total += Math.Abs(diff - n.Current).Squared();
 			n.MoveNext();
 			diff = n.Current;
 			n.MoveNext();
@@ -175,14 +225,34 @@ namespace praatinvoke
 			return total.SquareRoot();
 		}
 		
+		public static double Average(this double[] strl)
+		{
+			return strl.Sum() / strl.Length;
+		}
+		
 		public static float Average(this float[] strl)
 		{
 			return strl.Sum() / strl.Length;
 		}
 		
+		public static double AbsSubtract(this double[] strl)
+		{
+			return Math.Abs(strl[0] - strl[1]);
+		}
+		
 		public static float AbsSubtract(this float[] strl)
 		{
 			return Math.Abs(strl[0] - strl[1]);
+		}
+		
+		public static double Multiply(this IEnumerable<double> strl)
+		{
+			double total = 1.0;
+			foreach (double x in strl)
+			{
+				total *= x;
+			}
+			return total;
 		}
 		
 		public static float Multiply(this IEnumerable<float> strl)
@@ -214,6 +284,28 @@ namespace praatinvoke
 		{
 			return (float)Math.Sqrt(s);
 		}
+		
+		public static void SetValAtName(this IEnumerable<OpGroup> strl, string name, double val)
+		{
+			foreach (OpGroup x in strl)
+			{
+				if (x.Contains(name))
+				{
+					x.SetValAtName(name, val);
+				}
+			}
+		}
+		
+		public static void SetValAtName(this IEnumerable<OpGroup> strl, string name, float val)
+		{
+			foreach (OpGroup x in strl)
+			{
+				if (x.Contains(name))
+				{
+					x.SetValAtName(name, val);
+				}
+			}
+		}
 	}
 	
 	public class OpGroup
@@ -230,8 +322,7 @@ namespace praatinvoke
 		// H = tHree-dimensional distance
 		// G = General N-dimensional distance
 		public string[] names;
-		public int[] idxs;
-		public float[] values;
+		public double[] values;
 		
 		public OpGroup(string input)
 		{
@@ -285,8 +376,7 @@ namespace praatinvoke
 			{
 				names = ninput.Split('N');
 			}
-			idxs = new int[names.Length];
-			values = new float[names.Length];
+			values = new double[names.Length];
 		}
 		
 		public bool Equals(string item)
@@ -294,25 +384,9 @@ namespace praatinvoke
 			return (this.ToString() == item);
 		}
 		
-		public bool Contains(int item)
-		{
-			return idxs.Contains(item);
-		}
-		
 		public bool Contains(string item)
 		{
 			return names.Contains(item);
-		}
-		
-		public void SetMatchAttr(string attr, int item)
-		{
-			for (int i = 0; i < names.Length; ++i)
-			{
-				if (names[i] == attr)
-				{
-					idxs[i] = item;
-				}
-			}
 		}
 		
 		public override string ToString()
@@ -323,41 +397,46 @@ namespace praatinvoke
 				return op+names.Join('N');
 		}
 		
-		public string GetVal()
+		public double GetVal()
 		{
 			if (op == 'I')
-				return values[0].ToString();
+				return values[0];
 			else if (op == 'S')
-				return values.AbsSubtract().ToString();
+				return values.AbsSubtract();
 			else if (op == 'A')
-				return values.Average().ToString();
+				return values.Average();
 			else if (op == 'L')
-				return values.L2Norm().ToString();
+				return values.L2Norm();
 			else if (op == 'W')
-				return values.Distance2D().ToString();
+				return values.Distance2D();
 			else if (op == 'H')
-				return values.Distance3D().ToString();
+				return values.Distance3D();
 			else if (op == 'G')
-				return values.Distance().ToString();
+				return values.Distance();
 			else
-				return null;
+				return double.NaN;
 		}
 		
-		public void SetValAtIdx(int idx, float val)
+		public void SetValAtName(string name, double val)
 		{
 			int i;
-			for (i = 0; i < idxs.Length; ++i)
+			for (i = 0; i < names.Length; ++i)
 			{
-				if (idxs[i] == idx)
+				if (names[i] == name)
 					break;
 			}
 			values[i] = val;
 		}
 		
-		public void SetValAtIdx(int idx, string val)
+		public void SetValAtName(string name, float val)
 		{
-			bool success;
-			SetValAtIdx(idx, val.ToFloat(out success));
+			int i;
+			for (i = 0; i < names.Length; ++i)
+			{
+				if (names[i] == name)
+					break;
+			}
+			values[i] = val;
 		}
 	}
 }

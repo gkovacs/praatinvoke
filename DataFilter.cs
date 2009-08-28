@@ -32,15 +32,35 @@ namespace praatinvoke
 	{
 		public DataPairDelegate dataoutput;
 		public string[] attributes;
+		public OpGroup[] featureIdx;
 		
 		public DataFilter(string[] a)
 		{
 			attributes = a;
+			featureIdx = new OpGroup[attributes.Length];
+			for (int i = 0; i < attributes.Length; ++i)
+			{
+				featureIdx[i] = new OpGroup(attributes[i]);
+			}
 		}
 		
 		public void FilterData(Pair<string, double>[] rawdatapairs)
 		{
-			dataoutput(rawdatapairs);
+			Pair<string, double>[] outputpairs = new Pair<string, double>[featureIdx.Length];
+			foreach (Pair<string, double> x in rawdatapairs)
+			{
+				if (x == null)
+					continue;
+				featureIdx.SetValAtName(x.first, x.second);
+			}
+			for (int i = 0; i < featureIdx.Length; ++i)
+			{
+				double nval = featureIdx[i].GetVal();
+				if (nval == double.NaN)
+					continue;
+				outputpairs[i] = new Pair<string, double>(attributes[i], nval);
+			}
+			dataoutput(outputpairs);
 		}
 		
 		public DataPairDelegate GetFilterInputDelegate()
