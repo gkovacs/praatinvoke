@@ -26,9 +26,7 @@
 
 using System;
 using System.Collections.Generic;
-using weka.classifiers.bayes;
 using weka.core;
-using weka.core.converters;
 
 namespace praatinvoke
 {
@@ -46,14 +44,15 @@ namespace praatinvoke
 		public OutputWekaDelegate wekaoutput;
 		public Instances trainset;
 		public Instances structure;
-		public NaiveBayes nb;
+        public weka.classifiers.lazy.IBk nb;
+        //public weka.classifiers.bayes.NaiveBayes nb;
 		public string[] attributes = null;
 		public string[] classifications = null;
 		
 		public WekaInvoke(string trainfile)
 		{
-			nb = new NaiveBayes();
-			ConverterUtils.DataSource ds = new ConverterUtils.DataSource(trainfile);
+            nb = new weka.classifiers.lazy.IBk();
+            weka.core.converters.ConverterUtils.DataSource ds = new weka.core.converters.ConverterUtils.DataSource(trainfile);
 			trainset = ds.getDataSet();
 			structure = ds.getStructure();
 			if (trainset.classIndex() == -1)
