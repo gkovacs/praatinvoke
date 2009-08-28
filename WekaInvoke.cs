@@ -43,6 +43,8 @@ namespace praatinvoke
 	
 	public class WekaInvoke
 	{
+		public InputWekaDelegate wekainput;
+		public OutputWekaDelegate wekaoutput;
 		public Instances trainset;
 		public Instances structure;
 		public NaiveBayes nb;
@@ -62,6 +64,8 @@ namespace praatinvoke
 				//Console.WriteLine(trainset.instance(i).AttributeName());
 			}
 			nb.buildClassifier(trainset);
+			attributes = ListAttributes();
+			classifications = ListClassifications();
 		}
 		
 		public string[] ListAttributes()
@@ -107,6 +111,21 @@ namespace praatinvoke
 			return null;
 		}
 		
+		public InputWekaDelegate GetWekaInputDelegate()
+		{
+			return new InputWekaDelegate(WekaFeedInput);
+		}
+		
+		public OutputWekaDelegate GetWekaOutputDelegate()
+		{
+			return new OutputWekaDelegate(WekaPrintOutput);
+		}
+		
+		public void SetWekaOutputDelegate(OutputWekaDelegate o)
+		{
+			wekaoutput = o;
+		}
+		
 		public void WekaPrintOutput(double[] results)
 		{
 			Console.WriteLine(results.mkstring());
@@ -114,17 +133,17 @@ namespace praatinvoke
 			Console.WriteLine(classifications[results.smallest()]);
 		}
 		
-		public void WekaInputDelegate(Pair<string, double>[] encinstance)
+		public void WekaFeedInput(Pair<string, double>[] encinstance)
 		{
 			weka.core.Instance inst = new weka.core.Instance(attributes.Length+1);
-			inst.setDataset(trainset);
+			inst.setDataset(structure);
 			foreach (Pair<string, double> x in encinstance)
 			{
 				if (x == null)
 					continue;
 				inst.setValue(FindAttribute(x.first), x.second);
 			}
-			WekaPrintOutput(ClassifyInstance(inst));
+			wekaoutput(ClassifyInstance(inst));
 		}
 	}
 }

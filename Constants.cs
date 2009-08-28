@@ -31,4 +31,6 @@ namespace praatinvoke
 	public delegate void ReceiveSamplesDelegate(float[] samples);
 	public delegate void CallPraatDelegate(string wavfile);
 	public delegate void OutputPraatDelegate(Pair<string, float>[] output);
+	public delegate void InputWekaDelegate(Pair<string, double>[] encinstance);
+	public delegate void OutputWekaDelegate(double[] results);
 }

@@ -41,8 +41,7 @@ namespace praatinvoke
 				}
 				
 				WekaInvoke wki = new WekaInvoke("iris.arff");
-				wki.attributes = wki.ListAttributes();
-				wki.classifications = wki.ListClassifications();
+				
 				Console.WriteLine(wki.attributes.mkstring());
 				Console.WriteLine(wki.classifications.mkstring());
 				
@@ -51,7 +50,8 @@ namespace praatinvoke
 				encinstance[1] = new Pair<string, double>("sepalwidth", 2.4);
 				encinstance[2] = new Pair<string, double>("petallength", 4.8);
 				encinstance[3] = new Pair<string, double>("petalwidth", 1.6);
-				wki.WekaInputDelegate(encinstance);
+				wki.SetWekaOutputDelegate(wki.GetWekaOutputDelegate());
+				wki.WekaFeedInput(encinstance);
 /*
 				weka.core.Instance inst = new weka.core.Instance(wki.attributes.Length+1);
 				inst.setDataset(wki.trainset);
