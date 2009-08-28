@@ -26,7 +26,6 @@
 
 using System;
 using FaceAPIDatatypes;
-using FaceAPIWrapper;
 
 namespace praatinvoke
 {

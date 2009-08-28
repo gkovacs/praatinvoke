@@ -25,6 +25,7 @@
 // THE SOFTWARE.
 
 using System;
+using System.Collections.Generic;
 
 namespace praatinvoke
 {
@@ -219,6 +220,16 @@ namespace praatinvoke
 				Console.WriteLine(e);
 				return null;
 			}
+		}
+		
+		public static string mkstring<T>(this IEnumerable<T> l)
+		{
+			string o = "";
+			foreach (T a in l)
+			{
+				o += a.ToString()+",";
+			}
+			return "["+o.Substring(0, o.Length-1)+"]";
 		}
 	}
 }

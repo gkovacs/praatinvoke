@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -35,6 +35,13 @@
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="weka, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>weka.exe</HintPath>
+    </Reference>
+    <Reference Include="IKVM.OpenJDK.Core, Version=0.40.0.1, Culture=neutral, PublicKeyToken=0738eb9f132ed756">
+      <Package>ikvm</Package>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -74,15 +81,12 @@
     <Compile Include="PortAudioSharp\src\PortAudio.cs" />
     <Compile Include="PortAudioSharp\src\PortAudioASIO.cs" />
     <Compile Include="FaceAPIOutput.cs" />
+    <Compile Include="WekaInvoke.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="FaceAPIDatatypes\FaceAPIDatatypes.csproj">
       <Project>{71A578D4-D0D8-40C3-981D-DF27A1513383}</Project>
       <Name>FaceAPIDatatypes</Name>
-    </ProjectReference>
-    <ProjectReference Include="FaceAPIWrapper\FaceAPIWrapper.vcproj">
-      <Project>{15BD1934-D344-4554-8157-11251A1338E4}</Project>
-      <Name>FaceAPIWrapper</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
