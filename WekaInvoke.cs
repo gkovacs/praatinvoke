@@ -94,7 +94,6 @@ namespace praatinvoke
 		
 		public double[] ClassifyInstance(Instance inst)
 		{
-			inst.setClassValue(nb.classifyInstance(inst));
 			return nb.distributionForInstance(inst);
 		}
 		

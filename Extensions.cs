@@ -231,5 +231,49 @@ namespace praatinvoke
 			}
 			return "["+o.Substring(0, o.Length-1)+"]";
 		}
+		
+		public static int greatest<T>(this IEnumerable<T> l)
+			where T : IComparable<T>
+		{
+			int idx = 0;
+			int i = 0;
+			T g = default(T);
+			foreach (T a in l)
+			{
+				if (g.Equals(default(T)))
+				{
+					g = a;
+				}
+				else if (a.CompareTo(g) > 0)
+				{
+					g = a;
+					idx = i;
+				}
+				i++;
+			}
+			return idx;
+		}
+		
+		public static int smallest<T>(this IEnumerable<T> l)
+			where T : IComparable<T>
+		{
+			int idx = 0;
+			int i = 0;
+			T g = default(T);
+			foreach (T a in l)
+			{
+				if (g.Equals(default(T)))
+				{
+					g = a;
+				}
+				else if (a.CompareTo(g) < 0)
+				{
+					g = a;
+					idx = i;
+				}
+				i++;
+			}
+			return idx;
+		}
 	}
 }

@@ -48,11 +48,14 @@ namespace praatinvoke
 				
 				weka.core.Instance inst = new weka.core.Instance(wki.attributes.Length+1);
 				inst.setDataset(wki.trainset);
-				inst.setValue(wki.FindAttribute("sepallength"), 5.1);
-				inst.setValue(wki.FindAttribute("sepalwidth"), 3.5);
-				inst.setValue(wki.FindAttribute("petallength"), 1.4);
-				inst.setValue(wki.FindAttribute("petalwidth"), 0.2);
-				Console.WriteLine(wki.ClassifyInstance(inst).mkstring());
+				inst.setValue(wki.FindAttribute("sepallength"), 6.3);
+				inst.setValue(wki.FindAttribute("sepalwidth"), 2.4);
+				inst.setValue(wki.FindAttribute("petallength"), 4.8);
+				inst.setValue(wki.FindAttribute("petalwidth"), 1.6);
+				double[] results = wki.ClassifyInstance(inst);
+				Console.WriteLine(results.mkstring());
+				Console.WriteLine(wki.classifications[results.greatest()]);
+				
 				/*
 				PraatInvoke pri = new PraatInvoke(args[0], args[1]);
 				PraatOutput pao = new PraatOutput();
