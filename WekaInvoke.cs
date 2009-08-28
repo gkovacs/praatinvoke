@@ -116,21 +116,9 @@ namespace praatinvoke
 			return new InputWekaDelegate(WekaFeedInput);
 		}
 		
-		public OutputWekaDelegate GetWekaOutputDelegate()
-		{
-			return new OutputWekaDelegate(WekaPrintOutput);
-		}
-		
 		public void SetWekaOutputDelegate(OutputWekaDelegate o)
 		{
 			wekaoutput = o;
-		}
-		
-		public void WekaPrintOutput(double[] results)
-		{
-			Console.WriteLine(results.mkstring());
-			Console.WriteLine(classifications[results.greatest()]);
-			Console.WriteLine(classifications[results.smallest()]);
 		}
 		
 		public void WekaFeedInput(Pair<string, double>[] encinstance)

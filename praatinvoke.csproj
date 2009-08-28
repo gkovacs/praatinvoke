@@ -82,6 +82,7 @@
     <Compile Include="PortAudioSharp\src\PortAudioASIO.cs" />
     <Compile Include="FaceAPIOutput.cs" />
     <Compile Include="WekaInvoke.cs" />
+    <Compile Include="WekaOutput.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="FaceAPIDatatypes\FaceAPIDatatypes.csproj">
