@@ -35,7 +35,7 @@ namespace praatinvoke
 {
 	public static class WekaExt
 	{
-		public static string attributeName(this Instance i)
+		public static string AttributeName(this Instance i)
         {
             return i.toString(i.classAttribute());
         }
@@ -59,7 +59,7 @@ namespace praatinvoke
 				trainset.setClassIndex(trainset.numAttributes() - 1);
 			for (int i = 0; i < trainset.numInstances(); ++i)
 			{
-				//Console.WriteLine(trainset.instance(i).attributeName());
+				//Console.WriteLine(trainset.instance(i).AttributeName());
 			}
 			nb.buildClassifier(trainset);
 		}
@@ -96,6 +96,16 @@ namespace praatinvoke
 		{
 			inst.setClassValue(nb.classifyInstance(inst));
 			return nb.distributionForInstance(inst);
+		}
+		
+		public weka.core.Attribute FindAttribute(string attrname)
+		{
+			for (int i = 0; i < structure.numAttributes(); ++i)
+			{
+				if (structure.attribute(i).name() == attrname)
+					return structure.attribute(i);
+			}
+			return null;
 		}
 	}
 }
