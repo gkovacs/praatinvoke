@@ -45,6 +45,14 @@ namespace praatinvoke
 				wki.classifications = wki.ListClassifications();
 				Console.WriteLine(wki.attributes.mkstring());
 				Console.WriteLine(wki.classifications.mkstring());
+				
+				weka.core.Instance inst = new weka.core.Instance(wki.attributes.Length+1);
+				inst.setDataset(wki.trainset);
+				inst.setValue(wki.trainset.attribute(0), 5.1);
+				inst.setValue(wki.trainset.attribute(1), 3.5);
+				inst.setValue(wki.trainset.attribute(2), 1.4);
+				inst.setValue(wki.trainset.attribute(3), 0.2);
+				Console.WriteLine(wki.ClassifyInstance(inst).mkstring());
 				/*
 				PraatInvoke pri = new PraatInvoke(args[0], args[1]);
 				PraatOutput pao = new PraatOutput();

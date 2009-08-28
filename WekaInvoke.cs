@@ -43,9 +43,9 @@ namespace praatinvoke
 	
 	public class WekaInvoke
 	{
-		Instances trainset;
-		Instances structure;
-		NaiveBayes nb;
+		public Instances trainset;
+		public Instances structure;
+		public NaiveBayes nb;
 		public string[] attributes = null;
 		public string[] classifications = null;
 		
@@ -61,6 +61,7 @@ namespace praatinvoke
 			{
 				//Console.WriteLine(trainset.instance(i).attributeName());
 			}
+			nb.buildClassifier(trainset);
 		}
 		
 		public string[] ListAttributes()
@@ -91,11 +92,10 @@ namespace praatinvoke
 			return attrs.ToArray();
 		}
 		
-		public string ClassifyInstance(Instance inst)
+		public double[] ClassifyInstance(Instance inst)
 		{
-			double cls = nb.classifyInstance(inst);
-			inst.setClassValue(cls);
-			return inst.attributeName();
+			inst.setClassValue(nb.classifyInstance(inst));
+			return nb.distributionForInstance(inst);
 		}
 	}
 }
