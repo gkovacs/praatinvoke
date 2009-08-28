@@ -1,5 +1,5 @@
 // 
-// WekaOutput.cs
+// DataFilter.cs
 //  
 // Author:
 //       Geza Kovacs <gkovacs@mit.edu>
@@ -28,25 +28,29 @@ using System;
 
 namespace praatinvoke
 {
-	public class WekaOutput
+	public class DataFilter
 	{
-		public string[] classifications = null;
+		public DataPairDelegate dataoutput;
+		public string[] attributes;
 		
-		public WekaOutput(string[] cl)
+		public DataFilter(string[] a)
 		{
-			classifications = cl;
+			attributes = a;
 		}
 		
-		public OutputWekaDelegate GetWekaOutputDelegate()
+		public void FilterData(Pair<string, double>[] rawdatapairs)
 		{
-			return new OutputWekaDelegate(WekaPrintOutput);
+			dataoutput(rawdatapairs);
 		}
-
-		public void WekaPrintOutput(double[] results)
+		
+		public DataPairDelegate GetFilterInputDelegate()
 		{
-			Console.WriteLine(results.mkstring());
-			Console.WriteLine(classifications[results.greatest()]);
-			Console.WriteLine(classifications[results.smallest()]);
+			return new DataPairDelegate(FilterData);
+		}
+		
+		public void SetFilterOutputDelegate(DataPairDelegate d)
+		{
+			dataoutput = d;
 		}
 	}
 }

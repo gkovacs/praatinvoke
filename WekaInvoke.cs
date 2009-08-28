@@ -42,7 +42,7 @@ namespace praatinvoke
 	
 	public class WekaInvoke
 	{
-		public InputWekaDelegate wekainput;
+		public DataPairDelegate wekainput;
 		public OutputWekaDelegate wekaoutput;
 		public Instances trainset;
 		public Instances structure;
@@ -110,9 +110,9 @@ namespace praatinvoke
 			return null;
 		}
 		
-		public InputWekaDelegate GetWekaInputDelegate()
+		public DataPairDelegate GetWekaInputDelegate()
 		{
-			return new InputWekaDelegate(WekaFeedInput);
+			return new DataPairDelegate(WekaFeedInput);
 		}
 		
 		public void SetWekaOutputDelegate(OutputWekaDelegate o)

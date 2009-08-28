@@ -31,7 +31,7 @@ namespace praatinvoke
 {
 	public class FaceAPIOutput
 	{
-		public InputWekaDelegate wekainput;
+		public DataPairDelegate dataoutput;
 		
 		public static void PrintHeadpose(smEngineHeadPoseData_cli headpose)
 		{
@@ -55,7 +55,7 @@ namespace praatinvoke
 				valpairs[i*3 + 1] = new Pair<string, double>("landmark_"+landmarks[i].id+"_fc_y", landmarks[i].fc.y);
 				valpairs[i*3 + 2] = new Pair<string, double>("landmark_"+landmarks[i].id+"_fc_z", landmarks[i].fc.z);
 			}
-			wekainput(valpairs);
+			dataoutput(valpairs);
 		}
 		
 		public HeadPoseDelegate GetHeadPoseDelegate()
@@ -68,9 +68,9 @@ namespace praatinvoke
 			return new LandmarksDelegate(OutputRawDataPairs);
 		}
 		
-		public void SetWekaInputDelegate(InputWekaDelegate wd)
+		public void SetDataFilterDelegate(DataPairDelegate d)
 		{
-			wekainput = wd;
+			dataoutput = d;
 		}
 	}
 }
