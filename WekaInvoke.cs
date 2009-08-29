@@ -33,9 +33,9 @@ namespace praatinvoke
 	public static class WekaExt
 	{
 		public static string AttributeName(this Instance i)
-        {
-            return i.toString(i.classAttribute());
-        }
+		{
+			return i.toString(i.classAttribute());
+		}
 	}
 	
 	public class WekaInvoke
@@ -44,15 +44,16 @@ namespace praatinvoke
 		public OutputWekaDelegate wekaoutput;
 		public Instances trainset;
 		public Instances structure;
-        public weka.classifiers.lazy.IBk nb;
-        //public weka.classifiers.bayes.NaiveBayes nb;
+		//public weka.classifiers.lazy.IBk nb;
+		public weka.classifiers.bayes.NaiveBayes nb;
 		public string[] attributes = null;
 		public string[] classifications = null;
 		
 		public WekaInvoke(string trainfile)
 		{
-            nb = new weka.classifiers.lazy.IBk();
-            weka.core.converters.ConverterUtils.DataSource ds = new weka.core.converters.ConverterUtils.DataSource(trainfile);
+			//nb = new weka.classifiers.lazy.IBk();
+			nb = new weka.classifiers.bayes.NaiveBayes();
+			weka.core.converters.ConverterUtils.DataSource ds = new weka.core.converters.ConverterUtils.DataSource(trainfile);
 			trainset = ds.getDataSet();
 			structure = ds.getStructure();
 			if (trainset.classIndex() == -1)
@@ -121,12 +122,14 @@ namespace praatinvoke
 		
 		public void WekaFeedInput(Pair<string, double>[] encinstance)
 		{
+			//Console.WriteLine(encinstance.mkstring());
 			weka.core.Instance inst = new weka.core.Instance(attributes.Length+1);
-			inst.setDataset(structure);
+			inst.setDataset(trainset);
 			foreach (Pair<string, double> x in encinstance)
 			{
 				if (x == null)
 					continue;
+				Console.WriteLine(x.mkstring());
 				inst.setValue(FindAttribute(x.first), x.second);
 			}
 			wekaoutput(ClassifyInstance(inst));

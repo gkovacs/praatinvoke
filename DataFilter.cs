@@ -46,6 +46,7 @@ namespace praatinvoke
 		
 		public void FilterData(Pair<string, double>[] rawdatapairs)
 		{
+			//Console.WriteLine(rawdatapairs.mkstring());
 			Pair<string, double>[] outputpairs = new Pair<string, double>[featureIdx.Length];
 			foreach (Pair<string, double> x in rawdatapairs)
 			{
@@ -60,7 +61,7 @@ namespace praatinvoke
 					continue;
 				outputpairs[i] = new Pair<string, double>(attributes[i], nval);
 			}
-			Console.WriteLine(outputpairs.mkstring());
+			//Console.WriteLine(outputpairs.mkstring());
 			dataoutput(outputpairs);
 		}
 		
