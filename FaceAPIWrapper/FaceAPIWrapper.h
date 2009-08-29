@@ -270,6 +270,9 @@ void run(void (__stdcall *hpcf)(void*, smEngineHeadPoseData, smCameraVideoFrame)
 		video_display.setFlags(SM_API_VIDEO_DISPLAY_REFERENCE_FRAME | SM_API_VIDEO_DISPLAY_HEAD_MESH | /*SM_API_VIDEO_DISPLAY_PERFORMANCE |*/ SM_API_VIDEO_DISPLAY_LANDMARKS | SM_API_VIDEO_DISPLAY_COLOR);
 		video_display.show();
 
+		engine->setEyebrowTrackingEnabled(true);
+		engine->setLipTrackingEnabled(true);
+
 		engine->start();
 
 //		updateSplash(splash,"Building Widgets");

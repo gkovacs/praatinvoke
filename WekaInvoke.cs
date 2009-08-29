@@ -129,7 +129,7 @@ namespace praatinvoke
 			{
 				if (x == null)
 					continue;
-				Console.WriteLine(x.mkstring());
+				//Console.WriteLine(x.mkstring());
 				inst.setValue(FindAttribute(x.first), x.second);
 			}
 			wekaoutput(ClassifyInstance(inst));
