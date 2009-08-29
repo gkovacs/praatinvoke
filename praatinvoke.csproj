@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -85,12 +85,18 @@
     <Compile Include="WekaOutput.cs" />
     <Compile Include="DataFilter.cs" />
     <Compile Include="OpGroup.cs" />
-    <Compile Include="ValueDisplayBars.cs" />
+    <Compile Include="ValueDisplayBars.cs">
+      <SubType>Form</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="FaceAPIDatatypes\FaceAPIDatatypes.csproj">
       <Project>{71A578D4-D0D8-40C3-981D-DF27A1513383}</Project>
       <Name>FaceAPIDatatypes</Name>
+    </ProjectReference>
+    <ProjectReference Include="FaceAPIWrapper\FaceAPIWrapper.vcproj">
+      <Project>{15BD1934-D344-4554-8157-11251A1338E4}</Project>
+      <Name>FaceAPIWrapper</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

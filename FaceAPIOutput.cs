@@ -32,7 +32,6 @@ namespace praatinvoke
 	public class FaceAPIOutput
 	{
 		public DataPairDelegate dataoutput;
-        public int curidx;
 		
 		public static void PrintHeadpose(smEngineHeadPoseData_cli headpose)
 		{
@@ -49,9 +48,6 @@ namespace praatinvoke
 		
 		public void OutputRawDataPairs(smFaceLandmark_cli[] landmarks)
 		{
-			curidx = (curidx + 1) % 20;
-			if (curidx != 0)
-				return;
 			Pair<string, double>[] valpairs = new Pair<string, double>[landmarks.Length * 3];
 			for (int i = 0; i < landmarks.Length; ++i)
 			{

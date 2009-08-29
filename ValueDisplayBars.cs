@@ -180,5 +180,18 @@ namespace praatinvoke
 		{
 			SetPercent(i, (int)(fraction * 100));
 		}
+
+		public OutputWekaDelegate GetWekaOutputDelegate()
+		{
+			return new OutputWekaDelegate(WekaDisplayOutput);
+		}
+
+		public void WekaDisplayOutput(double[] results)
+		{
+			for (int i = 0; i < results.Length; ++i)
+			{
+				SetPercent(i, results[i]);
+			}
+		}
 	}
 }

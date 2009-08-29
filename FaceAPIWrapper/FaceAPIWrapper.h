@@ -347,6 +347,7 @@ int main(int argc, char **argv)
 	public:
 		LandmarksDelegate ^outputlandmarks;
 		HeadPoseDelegate ^outputheadpose;
+		System::Threading::Thread ^thread;
 
 		
 
@@ -391,10 +392,22 @@ int main(int argc, char **argv)
 
 		void Run()
 		{
+			//RunStatic(outputlandmarks, outputheadpose);
 			//outputlandmarks = gcnew LandmarksDelegate(PrintLandmarks);
 			//outputheadpose = gcnew HeadPoseDelegate(PrintHeadpose);
 			run(headPoseCallback, faceDataCallback, outputlandmarks, outputheadpose);
 			//Console::WriteLine("mekngak");
+		}
+
+		static void RunStatic(LandmarksDelegate ^outputlandmarks, HeadPoseDelegate ^outputheadpose)
+		{
+			run(headPoseCallback, faceDataCallback, outputlandmarks, outputheadpose);
+		}
+
+		void RunThread()
+		{
+			thread = gcnew System::Threading::Thread(gcnew System::Threading::ThreadStart(this, &FaceInvoke::Run));
+			thread->Start();
 		}
 	};
 }
