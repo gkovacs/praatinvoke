@@ -1,4 +1,4 @@
-// 
+﻿// 
 // Main.cs
 //  
 // Author:
@@ -25,8 +25,9 @@
 // THE SOFTWARE.
 
 using System;
+using praatinvoke;
 
-namespace praatinvoke
+namespace praatinvoke_cs
 {
 	class MainClass
 	{
@@ -44,14 +45,14 @@ namespace praatinvoke
 				DataFilter dtf = new DataFilter(wki.attributes);
 				//WekaOutput wko = new WekaOutput(wki.classifications);
 				ValueDisplayBars vds = new ValueDisplayBars(wki.classifications);
-				
+
 				Console.WriteLine(wki.attributes.mkstring());
 				Console.WriteLine(wki.classifications.mkstring());
 
 				//wki.SetWekaOutputDelegate(wko.GetWekaOutputDelegate());
 				wki.SetWekaOutputDelegate(vds.GetWekaOutputDelegate());
 				dtf.SetFilterOutputDelegate(wki.GetWekaInputDelegate());
-				
+
 				/*
 				PraatInvoke pri = new PraatInvoke(args[0], args[1]);
 				PraatOutput pao = new PraatOutput();
@@ -62,7 +63,7 @@ namespace praatinvoke
 				pri.SetOutputPraatDelegate(pao.GetPraatOutputDelegate());
 				rec.audio.Start();
 				*/
-                
+
 				FaceAPIOutput fao = new FaceAPIOutput();
 				FaceAPIWrapper.FaceInvoke fci = new FaceAPIWrapper.FaceInvoke();
 				fci.SetHeadPoseDelegate(fao.GetHeadPoseDelegate());
