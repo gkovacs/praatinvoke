@@ -38,20 +38,24 @@ namespace praatinvoke
 		}
 	}
 	
-	public class WekaInvoke
+	public class WekaInvoke<T>
+		where T : weka.classifiers.Classifier, new()
 	{
 		public DataPairDelegate wekainput;
 		public OutputWekaDelegate wekaoutput;
 		public Instances trainset;
 		public Instances structure;
-		public weka.classifiers.lazy.IBk nb;
+
+		public T nb;
+		//public weka.classifiers.lazy.IBk nb;
 		//public weka.classifiers.bayes.NaiveBayes nb;
 		public string[] attributes = null;
 		public string[] classifications = null;
 		
 		public WekaInvoke(string trainfile)
 		{
-			nb = new weka.classifiers.lazy.IBk();
+			nb = new T();
+			//nb = new new weka.classifiers.lazy.IBk();
 			//nb = new weka.classifiers.bayes.NaiveBayes();
 			weka.core.converters.ConverterUtils.DataSource ds = new weka.core.converters.ConverterUtils.DataSource(trainfile);
 			trainset = ds.getDataSet();

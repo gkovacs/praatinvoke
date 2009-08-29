@@ -39,8 +39,8 @@ namespace praatinvoke
 				//	Console.WriteLine("not enough arguments");
 				//	return;
 				//}
-				
-				WekaInvoke wki = new WekaInvoke("train.arff");
+
+				WekaInvoke<weka.classifiers.lazy.IBk> wki = new WekaInvoke<weka.classifiers.lazy.IBk>("train.arff");
 				DataFilter dtf = new DataFilter(wki.attributes);
 				//WekaOutput wko = new WekaOutput(wki.classifications);
 				ValueDisplayBars vds = new ValueDisplayBars(wki.classifications);
