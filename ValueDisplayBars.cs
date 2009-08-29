@@ -64,6 +64,23 @@ namespace praatinvoke
 				lb.Text = nv;
 			}
 		}
+
+		public static void SetFontStyle(this Label lb, System.Drawing.FontStyle b)
+		{
+			if (lb.InvokeRequired)
+			{
+				lb.BeginInvoke(new MethodInvoker(
+				delegate()
+				{
+					SetFontStyle(lb, b);
+				}
+			));
+			}
+			else
+			{
+				lb.Font = new System.Drawing.Font(lb.Font, b);
+			}
+		}
 	}
 	
 	public class ValueDisplayBars : Form
@@ -94,7 +111,6 @@ namespace praatinvoke
 				pb[i].Location = new System.Drawing.Point(300, elemheight * i);
 				pb[i].Size = new System.Drawing.Size(500, elemheight);
 				pb[i].Show();
-				
 				Controls.Add(pb[i]);
 				
 				lb[i] = new Label();
@@ -102,7 +118,6 @@ namespace praatinvoke
 				lb[i].Location = new System.Drawing.Point(0, elemheight * i);
 				lb[i].Size = new System.Drawing.Size(300, elemheight);
 				lb[i].TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-				lb[i].Font = new System.Drawing.Font(lb[i].Font, System.Drawing.FontStyle.Bold);
 				lb[i].Show();
 				Controls.Add(lb[i]);
 				
@@ -111,7 +126,6 @@ namespace praatinvoke
 				rc[i].Location = new System.Drawing.Point(800, elemheight * i);
 				rc[i].Size = new System.Drawing.Size(50, elemheight);
 				rc[i].TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-				rc[i].Font = new System.Drawing.Font(rc[i].Font, System.Drawing.FontStyle.Bold);
 				rc[i].Show();
 				Controls.Add(rc[i]);
 			}
@@ -152,7 +166,32 @@ namespace praatinvoke
 				}
 			}
 		}
-		
+
+		public void SetBoldIdx(int idx)
+		{
+			if (InvokeRequired)
+			{
+				BeginInvoke(new MethodInvoker(
+				delegate()
+				{
+					SetBoldIdx(idx);
+				}
+			));
+			}
+			else
+			{
+				for (int i = 0; i < names.Length; ++i)
+				{
+					if (i == idx)
+						continue;
+					lb[i].SetFontStyle(System.Drawing.FontStyle.Regular);
+					rc[i].SetFontStyle(System.Drawing.FontStyle.Regular);
+				}
+				lb[idx].SetFontStyle(System.Drawing.FontStyle.Bold);
+				rc[idx].SetFontStyle(System.Drawing.FontStyle.Bold);
+			}
+		}
+
 		public void SetPercent(int i, int percent)
 		{
 			if (InvokeRequired)
@@ -191,6 +230,7 @@ namespace praatinvoke
 			for (int i = 0; i < results.Length; ++i)
 			{
 				SetPercent(i, results[i]);
+				SetBoldIdx(results.greatest());
 			}
 		}
 	}
